@@ -65,7 +65,7 @@ WSGI_APPLICATION = 'to_do.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': config('DATABASE_ENGINE'),
+        'ENGINE': config('DB_ENGINE'),
         'NAME': 'to_do',
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
