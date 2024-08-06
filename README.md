@@ -3,6 +3,7 @@ Page for events that taking place in Estonia
 
 
 Our application requirements:
+
 1 Login/registration
 2 List of events(possibility to categorize)
 3 Ability to create an event
