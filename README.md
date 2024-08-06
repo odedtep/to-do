@@ -13,6 +13,7 @@ Our application requirements:
 7 Weather widget
 
 ## Installation
+
 1. clone the file
 2. create virtual environment
 3. Activate virtual environment
