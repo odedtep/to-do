@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'events',
 ]
 
 MIDDLEWARE = [
@@ -64,13 +65,13 @@ WSGI_APPLICATION = 'to_do.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': config('DATABASE_ENGINE'),
-        'NAME': 'to_do',
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST':'localhost',
-        'PORT':config('DB_PORT'),
+    "default": {
+        "ENGINE": config('DB_ENGINE'),
+        "NAME":"to_do",
+        "USER": config('DB_USER'),
+        "PASSWORD": config('DB_PASSWORD'),
+        "HOST": "localhost",
+        "PORT": config('DB_PORT'),
     }
 }
 
