@@ -35,3 +35,4 @@ DB_PORT=''
             -Debug
             -Secret_key
 8. Connect database and run migration
+
