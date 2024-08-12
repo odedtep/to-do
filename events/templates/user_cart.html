@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+    <h1>Your Cart</h1>
+        <ul>
+            {% for item in cart_items %}
+            <li>{{ item.event.title }} - {{ item.event.start_date }}</li>
+            {% endfor %}
+        </ul>
+
+</body>
+</html>
