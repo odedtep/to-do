@@ -29,17 +29,18 @@ class EventCategory(models.Model):
 
 
 class Event(models.Model):
-    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    start_date = models.DateField()
-    end_date = models.DateField()  # can be optional
-    start_time = models.TimeField()
-    end_time = models.TimeField()  # can be optional
+    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE,blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE,blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)  # can be optional
+    start_time = models.TimeField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)  # can be optional
+    invited_users = models.ManyToManyField(User, related_name='invited_events', blank=True, null=True)
 
-    # need to add: pic/video
     # public or private
 
     def __str__(self):
@@ -51,6 +52,7 @@ class CartItem(models.Model):
     description = models.TextField()
     event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.event.title} added by {self.user.username}"
