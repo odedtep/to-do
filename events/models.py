@@ -10,16 +10,6 @@ class Location(models.Model):
         return self.name
 
 
-# class UserProfile(models.Model):
-#     first_name = models.CharField(max_length=100)
-#     surname = models.CharField(max_length=100)
-#     email = models.EmailField()
-#     phone = models.CharField(max_length=100)
-#     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return self.first_name
-
 class EventCategory(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -29,19 +19,38 @@ class EventCategory(models.Model):
 
 
 class Event(models.Model):
-    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE,blank=True, null=True)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE,blank=True, null=True)
+    PUBLIC = 'public'
+    PRIVATE = 'private'
+    EVENT_VISIBILITY_CHOICES = [
+        (PUBLIC, 'Public'),
+        (PRIVATE, 'Private (Specific Users)'),
+    ]
+
+    PAY_TO_JOIN = 'pay_to_join'
+    PAY_FOR_TASK = 'pay_for_task'
+    NO_PAYMENT = 'no_payment'
+    PAYMENT_TYPE_CHOICES = [
+        (PAY_TO_JOIN, 'Participants Pay to Join'),
+        (PAY_FOR_TASK, 'Creator Pays Participants'),
+        (NO_PAYMENT, 'No Payment'),
+    ]
+
+    category = models.ForeignKey(EventCategory, on_delete=models.CASCADE, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE,blank=True, null=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)  # can be optional
+    end_date = models.DateField(blank=True, null=True)
     start_time = models.TimeField(blank=True, null=True)
-    end_time = models.TimeField(blank=True, null=True)  # can be optional
-    invited_users = models.ManyToManyField(User, related_name='invited_events', blank=True, null=True)
-
-    # public or private
+    end_time = models.TimeField(blank=True, null=True)
+    image = models.ImageField(upload_to='event_images', blank=True, null=True)
+    video = models.FileField(upload_to='event_videos', blank=True, null=True)
+    invited_users = models.ManyToManyField(User, related_name='invited_events', blank=True)
+    visibility = models.CharField(max_length=10, choices=EVENT_VISIBILITY_CHOICES, default=PUBLIC)
+    payment_type = models.CharField(max_length=20, choices=PAYMENT_TYPE_CHOICES, default=NO_PAYMENT)
+    payment_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -53,6 +62,7 @@ class CartItem(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.event.title} added by {self.user.username}"

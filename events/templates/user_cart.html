@@ -5,12 +5,16 @@
     <title>Cart</title>
 </head>
 <body>
-    <h1>Your Cart</h1>
-        <ul>
-            {% for item in cart_items %}
-            <li>{{ item.event.title }} - {{ item.event.start_date }}</li>
-            {% endfor %}
-        </ul>
-
+<h1>Your Cart</h1>
+<ul>
+    {% for item in cart_items %}
+    <li>
+        <a href="{% url 'event_view' item.event.id %}">{{ item.event.title }}</a> - {{ item.event.start_date }} - {{ item.event.description }} - {{ item.event.location }}
+    </li>
+    {% empty %}
+    <li>No events available.</li>
+    {% endfor %}
+</ul>
 </body>
 </html>
+
