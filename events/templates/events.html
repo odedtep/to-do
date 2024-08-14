@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<body>
+<div>
+        <ul>
+            {% for item in cart_items %}
+            <li>{{ item.event.title }} - {{ item.event.start_date }}</li>
+            {% endfor %}
+        </ul>
+</div>
 <h1>Events</h1>
+<div>
 <ul>
     {% for event in events %}
     <li><a href="{% url 'event_detail' event.id %}">{{ event.title }}</a></li>
@@ -9,4 +18,5 @@
     <li>No events available.</li>
     {% endfor %}
 </ul>
+</div>
 {% endblock %}
