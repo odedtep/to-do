@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
+{% block title %}Home{% endblock %}
+
 {% block content %}
-<h1>Events</h1>
-<ul>
-    {% for event in events %}
-    <li><a href="{% url 'event_detail' event.id %}">{{ event.title }}</a></li>
-    {% empty %}
-    <li>No events available.</li>
-    {% endfor %}
-</ul>
+<h1>Find Events by Location and Date</h1>
+<form method="get" action="{% url 'events' %}">
+    <label for="location">Choose a location:</label>
+    <select name="location" id="location">
+        <option value="">--Select Location--</option>
+        {% for location in locations %}
+            <option value="{{ location.id }}">{{ location.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="date">Choose a date (optional):</label>
+    <input type="date" name="date" id="date">
+
+    <button type="submit">Find Events</button>
+</form>
 {% endblock %}

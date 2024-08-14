@@ -1,24 +1,15 @@
-{% extends 'base.html' %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event</title>
+</head>
 <body>
-<div class="nav">
-    <nav class="navbar">
-        <a href="{% url 'events' %}">Events</a>
-        <a href="{% url 'create_event' %}">Create Event</a>
-        {% if user.is_authenticated %}
-        <a href="{% url 'user_cart' %}">Cart</a>
-
-        {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </nav>
-</div>
-<div>
     <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Create Event</button>
 </form>
-</div>
-{% endblock %}
+
+</body>
+</html>

@@ -1,48 +1,20 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
 <body>
-<div class="nav">
-    <nav>
-        <a href="{% url 'events' %}">Events</a>
-        <a href="{% url 'create_event' %}">Create Event</a>
-        {% if user.is_authenticated %}
-        <a href="{% url 'user_cart' %}">Cart</a>
+<h1>Your Cart</h1>
+<ul>
+    {% for item in cart_items %}
+    <li>
+        <a href="{% url 'event_view' item.event.id %}">{{ item.event.title }}</a> - {{ item.event.start_date }} - {{ item.event.description }} - {{ item.event.location }}
+    </li>
+    {% empty %}
+    <li>No events available.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
 
-        {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </nav>
-</div>
-
-    <h1>Your Cart</h1>
-<div>
-        <ul>
-            {% for item in cart_items %}
-            <li>{{ item.event.title }} - {{ item.event.start_date }}</li>
-            {% endfor %}
-        </ul>
-</div>
-{% endblock %}
-{##}
-{#        <style>#}
-{#        a {#}
-{#            text-decoration: none;#}
-{#            color: #024560;#}
-{#            background-color: transparent;#}
-{#            padding: 12px;#}
-{#            transition: 0.2s;#}
-{#            margin: 0;#}
-{#        }#}
-{#        a:hover {#}
-{#            color: #fff;#}
-{#            background-color: #0d50a6;#}
-{#        }#}
-{#        .nav {#}
-{#            text-align: center;#}
-{#            padding: 12px;#}
-{#            background-color: #04bb89;#}
-{#        }#}
-{##}
-{#    </style>#}
