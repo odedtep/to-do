@@ -3,11 +3,15 @@ body {
 }
 
 nav {
-    text-align: center;
+    text-align: left;
     padding: 12px;
-    background-color: #174EA6;
+    background-color: #77bea2;
 }
-
+.nav-right {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
 a {
     text-decoration: none;
     color: #f9f9fc;
@@ -24,13 +28,12 @@ a:hover {
 }
 
 .create-event {
-    text-align: left;
-    border: #3875d7;
     border-radius: 10px;
-    background-color: #3875d7;
-    padding: 20px;
-    margin: 10px;
-    display: inline-block;
+    background-color: #a3cebc;
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+    width: 350px;
 }
 
 button {
@@ -45,11 +48,12 @@ button {
 
 .calendar {
     line-height: 2;
-    background-color: #3875d7;
+    background-color: #77bea2;
     border-radius: 15px;
     padding: 10px;
     margin: 15px;
     display: inline-block;
+    text-align: left;
 }
 
 label {
@@ -58,14 +62,14 @@ label {
 }
 
 .find-events {
-    background-color: #3875d7;
+    background-color: #77bea2;
     padding: 20px;
     margin: 20px;
     display: inline-block;
 }
 
 .cart {
-    background-color: #3875d7;
+    background-color: #77bea2;
     display: inline-block;
     padding: 20px;
     margin: 20px;
@@ -78,3 +82,4 @@ label {
     font-family: 'Verdana', sans-serif;
     font-size: small;
 }
+
