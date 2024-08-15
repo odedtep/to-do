@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
-<title>{% block title %}My Events{% endblock %}</title>
+<title>{% block title %}Events{% endblock %}</title>
 
 {% block content %}
 
 <h1>Event Calendar</h1>
 <div class="calendar">
+<h2>Upcoming events:</h2>
     <ul>
     {% for event in events %}
         <li>
