@@ -13,19 +13,47 @@
             width: 250px;
             text-align: center;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            position: fixed; /* Fixed position */
-            right: 20px; /* Distance from the right edge */
-            top: 20px; /* Distance from the top edge */
+            position: fixed;
+            right: 20px;
+            top: 20px;
         }
 
         #weather-widget img {
             width: 80px;
             height: auto;
         }
+
+        #weather-form {
+            margin-bottom: 20px;
+        }
+
+        #weather-form input {
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #weather-form button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #weather-form button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 <div id="weather-widget">
+    <form id="weather-form" method="get" action="{% url 'weather_view' %}">
+        <input type="text" name="city" placeholder="Enter city" value="{{ city }}" required>
+        <button type="submit">Get Weather</button>
+    </form>
     <h2>Weather in {{ city }}</h2>
     {% if temperature != 'N/A' %}
         <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon showing {{ description }}">

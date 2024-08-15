@@ -4,7 +4,6 @@ from .models import Location, Event, EventCategory, CartItem
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
 
-
 def index(request):
     locations = Location.objects.all()
     return render(request, 'index.html', {'locations': locations})
