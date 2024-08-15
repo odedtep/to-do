@@ -1,9 +1,9 @@
-from django.shortcuts import render
 import requests
 
-def weather_view(request):
-    api_key = 'YOUR_API_KEY'
-    city = request.GET.get('city', 'Tallinn')  # Default city if none is provided
+
+def weather_context(request):
+    api_key = '2d6b166ad4a337b949d2e1b86f2bde69'
+    city = 'Tallinn'
     url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
 
     try:
@@ -24,4 +24,4 @@ def weather_view(request):
             'icon': 'N/A',
         }
 
-    return render(request, 'weather.html', context)
+    return context
