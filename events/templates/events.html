@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<head>
+<title>{% block title %}Events{% endblock %}</title>
+</head>
+<body>
 <h1>Events</h1>
-
-<ul>
+<div id="events">
+    <ul>
     {% for event in events %}
         <li>
             <a href="{% url 'event_detail' event.id %}">
@@ -13,6 +17,7 @@
     {% empty %}
         <li>No events found for this location.</li>
     {% endfor %}
-</ul>
-
+    </ul>
+</div>
 {% endblock %}
+</body>

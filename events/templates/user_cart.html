@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+
+{% block content %}
 <head>
-    <meta charset="UTF-8">
-    <title>Cart</title>
+<title>{% block title %}Cart{% endblock %}</title>
 </head>
 <body>
 <h1>Your Cart</h1>
-<ul>
-    {% for item in cart_items %}
-    <li>
-        <a href="{% url 'event_view' item.event.id %}">{{ item.event.title }}</a> - {{ item.event.start_date }} - {{ item.event.description }} - {{ item.event.location }}
-    </li>
-    {% empty %}
-    <li>No events available.</li>
-    {% endfor %}
-</ul>
+<div>
+    <ul>
+        {% for item in cart_items %}
+        <li>
+            <a href="{% url 'event_view' item.event.id %}">{{ item.event.title }}</a> - {{ item.event.start_date }} - {{ item.event.description }} - {{ item.event.location }}
+        </li>
+            {% empty %}
+        <li>No events available.</li>
+            {% endfor %}
+    </ul>
+</div>
+{% endblock %}
 </body>
-</html>
-

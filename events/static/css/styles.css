@@ -21,10 +21,19 @@ nav {
     padding: 12px;
     background-color: #04bb89;
 }
-body {
-    background-color: #fac59c;
-}
 
+body {
+    background-color: sandybrown;
+}
 form {
     text-align: center;
+
+}
+
+button {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #04bb89;
+    color: #81d4fa;
+    font-family: 'Lato', sans-serif;
 }
