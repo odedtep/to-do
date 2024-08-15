@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Create an Account {% endblock %}
+
+{% block content %}
+    <form  method="POST" class="form-group">
+    {% csrf_token %}
+    {{form.as_p }}
+          <button type="Submit" class="btn brn-success">Register</button>
+
+{#          <small class="text-muted ml-3" >Already have an account? <a href="{% url 'login' %}">Sign In</a></small>#}
+    </form>
+
+{% endblock %}
