@@ -53,7 +53,7 @@ class Event(models.Model):
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.title if self.title else "Unnamed Event"
 
 
 class CartItem(models.Model):
