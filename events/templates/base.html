@@ -14,9 +14,14 @@
         <a href="{% url 'login' %}">Login</a>
         {% endif %}
     </nav>
+    <div id="weather-widget">
+    {% include 'weather.html' %}
+</div>
+<header>
     <div>
         {% block content %}
         {% endblock %}
     </div>
+</header>
 </body>
 </html>

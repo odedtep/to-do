@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather in {{ city }}</title>
+    <style>
+        #weather-widget {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fixed position */
+            right: 20px; /* Distance from the right edge */
+            top: 20px; /* Distance from the top edge */
+        }
+
+        #weather-widget img {
+            width: 80px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="weather-widget">
+    <h2>Weather in {{ city }}</h2>
+    {% if temperature != 'N/A' %}
+        <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon showing {{ description }}">
+        <p>Temperature: {{ temperature }}°C</p>
+        <p>Condition: {{ description }}</p>
+    {% else %}
+        <p>Weather data is currently unavailable.</p>
+    {% endif %}
+</div>
+</body>
+</html>
