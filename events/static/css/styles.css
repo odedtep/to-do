@@ -1,39 +1,68 @@
-h1 {
-    text-align: center;
+body {
+    background-color: #e9edff;
 }
-h2 {
+
+nav {
     text-align: center;
+    padding: 12px;
+    background-color: #174EA6;
 }
+
 a {
     text-decoration: none;
-    color: #024560;
+    color: #f9f9fc;
     background-color: transparent;
     padding: 12px;
     transition: 0.2s;
     margin: 0;
+    font-family: 'Verdana', sans-serif;
 }
 a:hover {
-    color: #fff;
-    background-color: #0d50a6;
-}
-nav {
-    text-align: center;
-    padding: 12px;
-    background-color: #04bb89;
+    color: #D2E3FC;
+    background-color: #4285F4;
 }
 
-body {
-    background-color: sandybrown;
-}
-form {
-    text-align: center;
-
+.create-event {
+    text-align: left;
+    border: #3875d7;
+    border-radius: 10px;
+    background-color: #3875d7;
+    padding: 20px;
+    margin: auto;
+    display: inline-block;
 }
 
 button {
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #04bb89;
-    color: #81d4fa;
-    font-family: 'Lato', sans-serif;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #174EA6;
+    color: #aee4fc;
+    font-family: 'Verdana', sans-serif;
+
+}
+
+li {
+    color: #1b1b1b;
+}
+
+.calendar {
+    background-color: #3875d7;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 15px;
+    display: inline-block;
+
+
+}
+
+label {
+    display: block;
+    margin-top: 1em;
+}
+
+.find-events {
+    background-color: #3875d7;
+    padding: 20px;
+    margin: 20px;
+    display: inline-block;
 }

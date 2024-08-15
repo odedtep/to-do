@@ -9,7 +9,7 @@
 <body>
 <div class="nav">
     <nav>
-        <a href="{% url 'events' %}">Events</a>
+        <a href="{% url 'events' %}">My Events</a>
         <a href="{% url 'create_event' %}">Create Event</a>
         {% if user.is_authenticated %}
         <a href="{% url 'user_cart' %}">Cart</a>
