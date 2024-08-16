@@ -50,7 +50,7 @@ def create_event(request):
 # need to add a msg if event created successfully
 
 
-@login_required
+# @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
 
