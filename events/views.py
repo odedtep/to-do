@@ -19,6 +19,10 @@ def location_detail(request, location_id):
     return render(request, 'location_detail.html', {'location': location, 'activities': activities})
 
 
+from django.shortcuts import render
+from .models import Event
+from .weather_context import weather_context  # Import the weather_context function
+
 def events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
@@ -27,11 +31,17 @@ def events(request):
 
     if location_id:
         events = events.filter(location_id=location_id)
+        location_name = events.first().location.name  # Assuming you have a 'name' field in your Location model
+    else:
+        location_name = 'Tallinn'  # Default location if none is selected
 
     if date:
         events = events.filter(start_date=date)
 
-    return render(request, 'events.html', {'events': events})
+    weather = weather_context(request, location_name)
+
+    return render(request, 'events.html', {'events': events, **weather})
+
 
 
 
