@@ -13,6 +13,8 @@ def weather_context(request, location='Tallinn'):
             'temperature': weather_data['main']['temp'],
             'description': weather_data['weather'][0]['description'],
             'icon': weather_data['weather'][0]['icon'],
+            'feels_like': weather_data['main']['feels_like'],
+            'wind': weather_data['wind']['speed'],
         }
     except (requests.exceptions.RequestException, KeyError):
         context = {
@@ -20,6 +22,7 @@ def weather_context(request, location='Tallinn'):
             'temperature': 'N/A',
             'description': 'N/A',
             'icon': 'N/A',
+            'feels_like': 'N/A',
         }
 
     return context

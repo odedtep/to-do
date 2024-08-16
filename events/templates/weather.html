@@ -30,6 +30,8 @@
             <img src="http://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon showing {{ description }}">
             <p>Temperature: {{ temperature }}°C</p>
             <p>Condition: {{ description }}</p>
+            <p>Feels like: {{ feels_like }} °C</p>
+            <p>Wind: {{ wind }} m/s</p>
         {% else %}
             <p>Weather data is currently unavailable.</p>
         {% endif %}
