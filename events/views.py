@@ -32,21 +32,28 @@ def events(request):
     if date:
         events = events.filter(start_date=date)
 
-    city = getCity(location_id)
+    city = getCity(location_id) if location_id else None
 
-    filtered_events = get_ticketmaster_events(request, city)
+    filtered_events = get_ticketmaster_events(request, city,date) if city else []
 
     return render(request, 'events.html', {'events': events, 'ticketmaster_events': filtered_events})
 
-def getCity(location_id):
-    city = ''
-    locations = Location.objects.all()
 
+def getCity(location_id):
+    if location_id is None:
+        return ''  # or any default value or behavior you want when location_id is not provided
+
+    city = ''
+    try:
+        location_id = int(location_id)  # Attempt to convert location_id to an integer
+    except ValueError:
+        return ''  # or handle the error accordingly
+
+    locations = Location.objects.all()
     for location in locations:
-        if location.id == str(location_id):
+        if location.id == location_id:
             city = location.name
     return city
-
 @login_required
 def create_event(request):
     if request.method == 'POST':
@@ -100,14 +107,20 @@ def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html', {'cart_items': cart_items})
 
-def get_ticketmaster_events(request, city):
+def get_ticketmaster_events(request, city, start_date):
     url = 'https://app.ticketmaster.com/discovery/v2/events.json'
     params = {
         'apikey': settings.TICKETMASTER_API_KEY,
         'city': city,
-        'size': 10
+        'start_date': start_date,
+        'size': 30
     }
-    response = requests.get(url, params=params)
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Raise an exception for 4xx/5xx errors
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    # response = requests.get(url, params=params)
 
     if response.status_code == 200:
         data = response.json()
@@ -127,7 +140,7 @@ def get_ticketmaster_events(request, city):
             address_line1 = venue_info.get('address', {}).get('line1')
             longitude = venue_info.get('location', {}).get('longitude')
             latitude = venue_info.get('location', {}).get('latitude')
-
+            event_url = event.get('url')
             # Create a new event dictionary
             filtered_event = {
                 'title': event_name,
@@ -138,7 +151,8 @@ def get_ticketmaster_events(request, city):
                 'address_line1': address_line1,
                 'longitude': longitude,
                 'latitude': latitude,
-                'venue': venue_name
+                'venue': venue_name,
+                'url': event_url
             }
             filtered_events.append(filtered_event)
 
