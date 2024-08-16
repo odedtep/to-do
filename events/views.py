@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
 from .models import Location, Event, EventCategory, CartItem
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
