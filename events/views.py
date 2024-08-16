@@ -31,9 +31,9 @@ def events(request):
 
     if location_id:
         events = events.filter(location_id=location_id)
-        location_name = events.first().location.name  # Assuming you have a 'name' field in your Location model
+        location_name = events.first().location.name
     else:
-        location_name = 'Tallinn'  # Default location if none is selected
+        location_name = 'Tallinn'
 
     if date:
         events = events.filter(start_date=date)
