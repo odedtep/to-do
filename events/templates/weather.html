@@ -7,7 +7,7 @@
     <style>
         #weather-widget {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #93d8cc;
             padding: 20px;
             border-radius: 10px;
             width: 250px;
@@ -27,7 +27,7 @@
     <div id="weather-widget">
         <h2>Weather in {{ city }}</h2>
         {% if temperature != 'N/A' %}
-            <img src="http://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon showing {{ description }}">
+            <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon showing {{ description }}">
             <p>Temperature: {{ temperature }}°C</p>
             <p>Condition: {{ description }}</p>
             <p>Feels like: {{ feels_like }} °C</p>
