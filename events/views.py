@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Location, Event, EventCategory, CartItem
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
+from django.contrib import messages
 
 
 def index(request):
@@ -40,6 +41,7 @@ def create_event(request):
             event.creator = request.user
             event.save()
             form.save_m2m()
+            messages.success(request, 'Your event has been created!')
             return redirect('events')
     else:
         form = EventForm()
