@@ -10,5 +10,6 @@ urlpatterns = [
     path('event/<int:event_id>/view/', views.event_view, name='event_view'),
     path('event/<int:event_id>/add_to_cart/', views.add_to_cart, name='add_to_cart'),
     path('cart/', views.user_cart, name='user_cart'),
+    path('ticketmaster/<str:city>/', views.get_ticketmaster_events, name='ticketmaster-city')
 ]
 
