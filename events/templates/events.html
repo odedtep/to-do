@@ -15,4 +15,17 @@
     {% endfor %}
 </ul>
 
+<ul>
+    {% for event in ticketmaster_events %}
+        <li>
+            <a href="">
+                {{ event.title }} - {{ event.start_date }} at {{ event.city_name }}
+            </a>
+            <img width="200px" height="100px" src="{{ event.image_url }}"></img>
+        </li>
+    {% empty %}
+        <li>No events found for this location.</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

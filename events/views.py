@@ -32,9 +32,20 @@ def events(request):
     if date:
         events = events.filter(start_date=date)
 
-    return render(request, 'events.html', {'events': events})
+    city = getCity(location_id)
 
+    filtered_events = get_ticketmaster_events(request, city)
 
+    return render(request, 'events.html', {'events': events, 'ticketmaster_events': filtered_events})
+
+def getCity(location_id):
+    city = ''
+    locations = Location.objects.all()
+
+    for location in locations:
+        if location.id == str(location_id):
+            city = location.name
+    return city
 
 @login_required
 def create_event(request):
@@ -119,11 +130,11 @@ def get_ticketmaster_events(request, city):
 
             # Create a new event dictionary
             filtered_event = {
-                'name': event_name,
+                'title': event_name,
                 'image_url': third_image_url,
                 'start_date': start_date,
                 'start_time': start_time,
-                'city_name': city_name,
+                'location': city_name,
                 'address_line1': address_line1,
                 'longitude': longitude,
                 'latitude': latitude,
@@ -131,7 +142,7 @@ def get_ticketmaster_events(request, city):
             }
             filtered_events.append(filtered_event)
 
-        return JsonResponse(filtered_events, safe=False)
+        return filtered_events
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
 
