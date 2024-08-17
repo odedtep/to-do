@@ -6,7 +6,7 @@ from .forms import EventForm
 from django.conf import settings
 from django.http import JsonResponse
 from django.contrib import messages
-
+from datetime import datetime
 
 def index(request):
     locations = Location.objects.all()
@@ -27,6 +27,8 @@ def location_detail(request, location_id):
 def events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
+    start_date_iso8601 = ''
+    end_date_iso8601 = ''
 
     events = Event.objects.all()
 
@@ -35,21 +37,21 @@ def events(request):
 
     if date:
         events = events.filter(start_date=date)
+        start_date_iso8601 = f"{date}T00:00:00Z"
+        end_date_iso8601 = f"{date}T23:59:59Z"
 
-    city = getCity(location_id) if location_id else None
+    city = getCity(location_id)
 
-    filtered_events = get_ticketmaster_events(request, city,date) if city else []
+    filtered_events = get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
 
     return render(request, 'events.html', {'events': events, 'ticketmaster_events': filtered_events})
 
 
 def getCity(location_id):
     if location_id is None:
-        return ''  # or any default value or behavior you want when location_id is not provided
-
-    city = ''
+        return ''
     try:
-        location_id = int(location_id)  # Attempt to convert location_id to an integer
+        location_id = int(location_id)
     except ValueError:
         return ''  # or handle the error accordingly
 
@@ -111,13 +113,15 @@ def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html', {'cart_items': cart_items})
 
-def get_ticketmaster_events(request, city, start_date):
+def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601):
     url = 'https://app.ticketmaster.com/discovery/v2/events.json'
     params = {
         'apikey': settings.TICKETMASTER_API_KEY,
         'city': city,
-        'start_date': start_date,
-        'size': 30
+        'startDateTime': start_date_iso8601,
+        'endDateTime': end_date_iso8601,
+        'size': 100,
+
     }
     try:
         response = requests.get(url, params=params)
@@ -146,6 +150,7 @@ def get_ticketmaster_events(request, city, start_date):
             latitude = venue_info.get('location', {}).get('latitude')
             event_url = event.get('url')
             # Create a new event dictionary
+
             filtered_event = {
                 'title': event_name,
                 'image_url': third_image_url,
@@ -158,6 +163,7 @@ def get_ticketmaster_events(request, city, start_date):
                 'venue': venue_name,
                 'url': event_url
             }
+            # print(start_date)
             filtered_events.append(filtered_event)
 
         return filtered_events
