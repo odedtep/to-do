@@ -1,12 +1,11 @@
 import requests
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Location, Event, EventCategory, CartItem
+from .models import Location, Event, CartItem
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
 from django.conf import settings
 from django.http import JsonResponse
 from django.contrib import messages
-
 
 
 def index(request):
@@ -17,9 +16,14 @@ def index(request):
 def location_detail(request, location_id):
     location = get_object_or_404(Location, id=location_id)
     activities = Event.objects.filter(location=location)
-    return render(request, 'location_detail.html', {'location': location, 'activities': activities})
+    return render(
+        request,
+        'location_detail.html',
+        {'location': location, 'activities': activities}
+    )
 
 
+# TODO: change the function name to all_events
 def events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
@@ -35,7 +39,6 @@ def events(request):
     return render(request, 'events.html', {'events': events})
 
 
-
 @login_required
 def create_event(request):
     if request.method == 'POST':
@@ -46,15 +49,14 @@ def create_event(request):
             event.save()
             form.save_m2m()
             messages.success(request, 'Your event has been created!')
-            return redirect('events')
-    else:
-        form = EventForm()
+            return redirect('events')## NEED TO BE CHANGED
+    form = EventForm()
     return render(request, 'create_event.html', {'form': form})
 
 
 # need to add a msg if event created successfully
 
-
+# TODO: look over lines 71 and 72
 # @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -71,17 +73,17 @@ def event_detail(request, event_id):
 
     return render(request, 'event_detail.html', {'event': event})
 
+
 @login_required
 def event_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, 'event_view.html', {'event': event})
 
 
-
 @login_required
 def add_to_cart(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-    CartItem.objects.get_or_create(event=event, user=request.user)
+    CartItem.objects.create(event=event, user=request.user)
     return redirect('user_cart')
 
 
@@ -89,6 +91,7 @@ def add_to_cart(request, event_id):
 def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html', {'cart_items': cart_items})
+
 
 def get_ticketmaster_events(request, city):
     url = 'https://app.ticketmaster.com/discovery/v2/events.json'
@@ -135,5 +138,3 @@ def get_ticketmaster_events(request, city):
         return JsonResponse(filtered_events, safe=False)
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
-
-
