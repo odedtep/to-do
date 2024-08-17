@@ -9,6 +9,13 @@
             <a href="{% url 'event_detail' event.id %}">
                 {{ event.title }} - {{ event.start_date }} at {{ event.location.name }}
             </a>
+        {% if event.image %}
+        <div>
+            <img src="{{ event.image.url }}" alt="{{ event.title }} image" style="max-width: 200px; max-height: 200px;">
+        </div>
+    {% else %}
+        <div>No image available</div>
+    {% endif %}
         </li>
     {% empty %}
         <li>No events found for this location.</li>
