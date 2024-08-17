@@ -6,7 +6,7 @@ from .forms import EventForm
 from django.conf import settings
 from django.http import JsonResponse
 from django.contrib import messages
-
+from .weather_context import weather_context
 
 def index(request):
     locations = Location.objects.all()
@@ -31,11 +31,17 @@ def all_events(request):
 
     if location_id:
         events = events.filter(location_id=location_id)
+        location_name = events.first().location.name
+    else:
+        location_name = 'Tallinn'
 
     if date:
         events = events.filter(start_date=date)
 
-    return render(request, 'events.html', {'events': events})
+    weather = weather_context(request, location_name)
+
+    return render(request, 'events.html', {'events': events, **weather})
+
 
 
 @login_required
@@ -72,6 +78,7 @@ def event_view(request, event_id):
     return render(request, 'event_view.html', {'event': event})
 
 
+
 @login_required
 def add_to_cart(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -83,7 +90,6 @@ def add_to_cart(request, event_id):
 def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html', {'cart_items': cart_items})
-
 
 def get_ticketmaster_events(request, city):
     url = 'https://app.ticketmaster.com/discovery/v2/events.json'
@@ -130,3 +136,5 @@ def get_ticketmaster_events(request, city):
         return JsonResponse(filtered_events, safe=False)
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
+
+
