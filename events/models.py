@@ -62,7 +62,6 @@ class CartItem(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.event.title} added by {self.user.username}"

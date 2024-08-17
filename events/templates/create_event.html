@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Event</title>
-</head>
-<body>
+<title>{% block title %}Create Event{% endblock %}</title>
+
+{% block content %}
+
+<h1>Create Event</h1>
+<div class="create-event">
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Create Event</button>
-</form>
+    </form>
+</div>
 
-</body>
-</html>
+{% endblock %}
+
