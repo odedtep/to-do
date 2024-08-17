@@ -39,8 +39,13 @@
 {% endif %}
 
 
-<form method="post" action="{% url 'add_to_cart' event.id %}">
-    {% csrf_token %}
-    <button type="submit">Add to Cart</button>
-</form>
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'add_to_cart' event.id %}">
+        {% csrf_token %}
+        <button type="submit">Add to Cart</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
+{% endif %}
+
 {% endblock %}

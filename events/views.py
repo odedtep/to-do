@@ -1,11 +1,11 @@
 import requests
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
 from .models import Location, Event, EventCategory, CartItem
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
 from django.conf import settings
 from django.http import JsonResponse
+from django.contrib import messages
 
 
 
@@ -45,6 +45,7 @@ def create_event(request):
             event.creator = request.user
             event.save()
             form.save_m2m()
+            messages.success(request, 'Your event has been created!')
             return redirect('events')
     else:
         form = EventForm()
@@ -54,7 +55,7 @@ def create_event(request):
 # need to add a msg if event created successfully
 
 
-@login_required
+# @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
 
