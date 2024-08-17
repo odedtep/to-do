@@ -23,8 +23,7 @@ def location_detail(request, location_id):
     )
 
 
-# TODO: change the function name to all_events
-def events(request):
+def all_events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
 
@@ -49,14 +48,11 @@ def create_event(request):
             event.save()
             form.save_m2m()
             messages.success(request, 'Your event has been created!')
-            return redirect('events')## NEED TO BE CHANGED
+            return redirect('all_events')
     form = EventForm()
     return render(request, 'create_event.html', {'form': form})
 
 
-# need to add a msg if event created successfully
-
-# TODO: look over lines 71 and 72
 # @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -67,10 +63,6 @@ def event_detail(request, event_id):
             return redirect('user_cart')
         elif event.payment_type == Event.PAY_FOR_TASK and request.user == event.creator:
             return redirect('event_detail', event_id=event.id)
-        else:
-            CartItem.objects.get_or_create(event=event, user=request.user)
-            return redirect('user_cart')
-
     return render(request, 'event_detail.html', {'event': event})
 
 
