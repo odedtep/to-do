@@ -1,8 +1,12 @@
+import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Location, Event, EventCategory, CartItem
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
+from django.conf import settings
+from django.http import JsonResponse
 from django.contrib import messages
+
 
 
 def index(request):
@@ -86,5 +90,50 @@ def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html', {'cart_items': cart_items})
 
+def get_ticketmaster_events(request, city):
+    url = 'https://app.ticketmaster.com/discovery/v2/events.json'
+    params = {
+        'apikey': settings.TICKETMASTER_API_KEY,
+        'city': city,
+        'size': 10
+    }
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        events_data = data.get('_embedded', {}).get('events', [])
+
+        filtered_events = []
+        for event in events_data:
+            # Extract the required fields
+            event_name = event.get('name')
+            images = event.get('images', [])
+            third_image_url = images[2].get('url') if len(images) > 2 else None
+            start_date = event.get('dates', {}).get('start', {}).get('localDate')
+            start_time = event.get('dates', {}).get('start', {}).get('localTime')
+            venue_info = event.get('_embedded', {}).get('venues', [{}])[0]
+            venue_name = venue_info.get('name')
+            city_name = venue_info.get('city', {}).get('name')
+            address_line1 = venue_info.get('address', {}).get('line1')
+            longitude = venue_info.get('location', {}).get('longitude')
+            latitude = venue_info.get('location', {}).get('latitude')
+
+            # Create a new event dictionary
+            filtered_event = {
+                'name': event_name,
+                'image_url': third_image_url,
+                'start_date': start_date,
+                'start_time': start_time,
+                'city_name': city_name,
+                'address_line1': address_line1,
+                'longitude': longitude,
+                'latitude': latitude,
+                'venue': venue_name
+            }
+            filtered_events.append(filtered_event)
+
+        return JsonResponse(filtered_events, safe=False)
+    else:
+        return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
 
 
