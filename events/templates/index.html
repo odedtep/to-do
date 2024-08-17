@@ -3,7 +3,9 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
 <h1>Find Events by Location and Date</h1>
+<div class="find-events">
 <form method="get" action="{% url 'events' %}">
     <label for="location">Choose a location:</label>
     <select name="location" id="location">
@@ -15,7 +17,8 @@
 
     <label for="date">Choose a date (optional):</label>
     <input type="date" name="date" id="date">
-
+<br>
     <button type="submit">Find Events</button>
 </form>
+</div>
 {% endblock %}
