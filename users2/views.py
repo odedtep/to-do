@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import RegisterForm
@@ -8,6 +7,7 @@ from .forms import RegisterForm
 
 def index(request):
     return render(request, 'index.html')
+
 
 # Create your views here.
 def register(request):
@@ -18,10 +18,8 @@ def register(request):
             login(request, user)
             messages.success(request, 'Your account has been created!')
             return redirect('home')
-        else:
-            messages.error(request, 'There was an error with your registration. Please try again.')
-    else:
-        form = RegisterForm()
+        messages.error(request, 'There was an error with your registration. Please try again.')
+    form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
 
@@ -32,18 +30,15 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None:
+            if user:
                 login(request, user)
                 messages.success(request, f'Welcome back, {username} !')
                 return redirect('home')
-            else:
-                messages.error(request, 'Invalid username or password.')
-        else:
             messages.error(request, 'Invalid username or password.')
-    else:
-        form = AuthenticationForm()
-
+        messages.error(request, 'Invalid username or password.')
+    form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)

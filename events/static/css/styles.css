@@ -1,0 +1,84 @@
+body {
+    background-color: #e9edff;
+}
+
+nav {
+    text-align: left;
+    padding: 12px;
+    background-color: #77bea2;
+}
+.nav-right {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+a {
+    text-decoration: none;
+    color: #f9f9fc;
+    background-color: transparent;
+    padding: 12px;
+    line-height: 2.5;
+    transition: 0.2s;
+    margin: 0;
+    font-family: 'Verdana', sans-serif;
+}
+a:hover {
+    color: #D2E3FC;
+    background-color: #4285F4;
+}
+
+.create-event {
+    border-radius: 10px;
+    background-color: #a3cebc;
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+    width: 350px;
+}
+
+button {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #174EA6;
+    color: #aee4fc;
+    font-family: 'Verdana', sans-serif;
+
+}
+
+
+.calendar {
+    line-height: 2;
+    background-color: #77bea2;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 15px;
+    display: inline-block;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-top: 1em;
+}
+
+.find-events {
+    background-color: #77bea2;
+    padding: 20px;
+    margin: 20px;
+    display: inline-block;
+}
+
+.cart {
+    background-color: #77bea2;
+    display: inline-block;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 15px;
+}
+.contact {
+    background-color: #e2e2ea;
+    padding: 15px;
+    color: #000000;
+    font-family: 'Verdana', sans-serif;
+    font-size: small;
+}
