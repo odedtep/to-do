@@ -1,31 +1,35 @@
 {% extends 'base.html' %}
 
-<title>{% block title %}Events{% endblock %}</title>
+{% block title %}Events{% endblock %}
 
 {% block content %}
 
 <h1>Event Calendar</h1>
 <div class="calendar">
-<h2>Upcoming events:</h2>
+    <h2>Upcoming events:</h2>
     <ul>
-    {% for event in events %}
-        <li>
-            <a href="{% url 'event_detail' event.id %}">
-                {{ event.title }} - {{ event.start_date }} at {{ event.location.name }}
-            </a>
-        {% if event.image %}
-        <div>
-            <img src="{{ event.image.url }}" alt="{{ event.title }} image" style="max-width: 200px; max-height: 200px;">
-        </div>
-    {% else %}
-        <div>No image available</div>
-    {% endif %}
-        </li>
-    {% empty %}
-        <li>No events found for this location.</li>
-    {% endfor %}
+        {% for event in events %}
+            <li>
+                <a href="{% url 'event_detail' event.id %}">
+                    {{ event.title }} - {{ event.start_date }} at
+                    {% if event.location %}
+                        {{ event.location.name }}
+                    {% else %}
+                        Unspecified location
+                    {% endif %}
+                </a>
+                {% if event.image %}
+                    <div>
+                        <img src="{{ event.image.url }}" alt="{{ event.title }} image" style="max-width: 200px; max-height: 200px;">
+                    </div>
+                {% else %}
+                    <div>No image available</div>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No events found for this location.</li>
+        {% endfor %}
     </ul>
 </div>
 
 {% endblock %}
-

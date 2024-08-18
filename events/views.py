@@ -8,7 +8,10 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .weather_context import weather_context
 
+
 def index(request):
+    if 'weather_location' in request.session:
+        del request.session['weather_location']
     locations = Location.objects.all()
     return render(request, 'index.html', {'locations': locations})
 
@@ -27,21 +30,27 @@ def all_events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
 
+    if location_id:
+        location = Location.objects.filter(id=location_id).first()
+        if location:
+            weather_location = location.name
+            request.session['weather_location'] = weather_location
+        else:
+            weather_location = 'Tallinn'
+    else:
+        weather_location = request.session.get('weather_location', 'Tallinn')
+
     events = Event.objects.all()
 
     if location_id:
-        events = events.filter(location_id=location_id)
-        location_name = events.first().location.name
-    else:
-        location_name = 'Tallinn'
+        events = events.filter(location__name=weather_location)
 
     if date:
         events = events.filter(start_date=date)
 
-    weather = weather_context(request, location_name)
+    weather = weather_context(request, weather_location)
 
     return render(request, 'events.html', {'events': events, **weather})
-
 
 
 @login_required
@@ -62,6 +71,15 @@ def create_event(request):
 # @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
+    location_name = event.location.name \
+        if event.location \
+        else 'Tallinn'
+
+    if event.location:
+        request.session['weather_location'] = event.location.name
+
+    # Fetch weather data
+    weather = weather_context(request, location_name)
 
     if request.method == 'POST' and request.user.is_authenticated:
         if event.payment_type == Event.PAY_TO_JOIN and event.payment_amount > 0:
@@ -69,14 +87,13 @@ def event_detail(request, event_id):
             return redirect('user_cart')
         elif event.payment_type == Event.PAY_FOR_TASK and request.user == event.creator:
             return redirect('event_detail', event_id=event.id)
-    return render(request, 'event_detail.html', {'event': event})
+    return render(request, 'event_detail.html', {'event': event, **weather})
 
 
 @login_required
 def event_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, 'event_view.html', {'event': event})
-
 
 
 @login_required
@@ -90,6 +107,7 @@ def add_to_cart(request, event_id):
 def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html', {'cart_items': cart_items})
+
 
 def get_ticketmaster_events(request, city):
     url = 'https://app.ticketmaster.com/discovery/v2/events.json'
@@ -136,5 +154,3 @@ def get_ticketmaster_events(request, city):
         return JsonResponse(filtered_events, safe=False)
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
-
-
