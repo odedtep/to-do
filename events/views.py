@@ -78,16 +78,19 @@ def event_detail(request, event_id):
     if event.location:
         request.session['weather_location'] = event.location.name
 
-    # Fetch weather data
     weather = weather_context(request, location_name)
 
+    participants = event.participants.count()
     if request.method == 'POST' and request.user.is_authenticated:
         if event.payment_type == Event.PAY_TO_JOIN and event.payment_amount > 0:
             CartItem.objects.get_or_create(event=event, user=request.user)
             return redirect('user_cart')
         elif event.payment_type == Event.PAY_FOR_TASK and request.user == event.creator:
             return redirect('event_detail', event_id=event.id)
-    return render(request, 'event_detail.html', {'event': event, **weather})
+    return render(request, 'event_detail.html',
+                  {'event': event,
+                   'participants': participants,
+                   **weather})
 
 
 @login_required
@@ -99,6 +102,8 @@ def event_view(request, event_id):
 @login_required
 def add_to_cart(request, event_id):
     event = get_object_or_404(Event, id=event_id)
+    if not request.user in event.participants.all():
+        event.participants.add(request.user)
     CartItem.objects.create(event=event, user=request.user)
     return redirect('user_cart')
 
