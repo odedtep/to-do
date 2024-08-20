@@ -6,6 +6,7 @@ from .forms import EventForm
 from django.conf import settings
 from django.http import JsonResponse
 from django.contrib import messages
+from .weather_context import weather_context
 from datetime import datetime
 
 def index(request):
@@ -23,10 +24,7 @@ def location_detail(request, location_id):
     )
 
 
-# TODO: change the function name to all_events
-
-# fir checking
-def events(request):
+def all_events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
     start_date_iso8601 = ''
@@ -36,6 +34,9 @@ def events(request):
 
     if location_id:
         events = events.filter(location_id=location_id)
+        location_name = events.first().location.name
+    else:
+        location_name = 'Tallinn'
 
     if date:
         events = events.filter(start_date=date)
@@ -44,9 +45,12 @@ def events(request):
 
     city = getCity(location_id)
 
+    weather = weather_context(request, location_name)
     filtered_events = get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
 
-    return render(request, 'events.html', {'events': events, 'ticketmaster_events': filtered_events})
+    return render(request, 'events.html', {'events': events, **weather, 'ticketmaster_events': filtered_events})
+
+
 
 
 def getCity(location_id):
@@ -72,14 +76,11 @@ def create_event(request):
             event.save()
             form.save_m2m()
             messages.success(request, 'Your event has been created!')
-            return redirect('events')## NEED TO BE CHANGED
+            return redirect('all_events')
     form = EventForm()
     return render(request, 'create_event.html', {'form': form})
 
 
-# need to add a msg if event created successfully
-
-# TODO: look over lines 71 and 72
 # @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -90,17 +91,13 @@ def event_detail(request, event_id):
             return redirect('user_cart')
         elif event.payment_type == Event.PAY_FOR_TASK and request.user == event.creator:
             return redirect('event_detail', event_id=event.id)
-        else:
-            CartItem.objects.get_or_create(event=event, user=request.user)
-            return redirect('user_cart')
-
     return render(request, 'event_detail.html', {'event': event})
+
 
 @login_required
 def event_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, 'event_view.html', {'event': event})
-
 
 
 @login_required
@@ -165,11 +162,8 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
                 'venue': venue_name,
                 'url': event_url
             }
-            # print(start_date)
             filtered_events.append(filtered_event)
 
         return filtered_events
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
-
-

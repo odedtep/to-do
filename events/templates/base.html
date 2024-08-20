@@ -8,7 +8,7 @@
 <body>
 <nav>
     <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'events' %}">Events</a>
+    <a href="{% url 'all_events' %}">Events</a>
 
     {% if user.is_authenticated %}
 
@@ -23,12 +23,16 @@
         <a href="{% url 'register' %}">Register</a>
     {% endif %}
 </nav>
+<div id="weather-widget">
+    {% include 'weather.html' %}
+</div>
 <div>
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
     {% endif %}
+
     {% block content %}
     {% endblock %}
 </div>
