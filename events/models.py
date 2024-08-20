@@ -51,6 +51,7 @@ class Event(models.Model):
     visibility = models.CharField(max_length=10, choices=EVENT_VISIBILITY_CHOICES, default=PUBLIC)
     payment_type = models.CharField(max_length=20, choices=PAYMENT_TYPE_CHOICES, default=NO_PAYMENT)
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=0)
+    participants = models.ManyToManyField(User, related_name='participated_events', blank=True)
 
     def __str__(self):
         return self.title if self.title else "Unnamed Event"
