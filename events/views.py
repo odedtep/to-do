@@ -22,6 +22,7 @@ def location_detail(request, location_id):
         {'location': location, 'activities': activities}
     )
 
+#comment
 
 def all_events(request):
     location_id = request.GET.get('location')
