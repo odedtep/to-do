@@ -31,9 +31,9 @@ def all_events(request):
     date = request.GET.get('date')
 
     if location_id:
-        location = Location.objects.filter(id=location_id).first()
-        if location:
-            weather_location = location.name
+        weather_location = Location.objects.filter(id=location_id).first()
+        if weather_location:
+            weather_location = weather_location.name
             request.session['weather_location'] = weather_location
         else:
             weather_location = 'Tallinn'
