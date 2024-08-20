@@ -24,6 +24,8 @@ def location_detail(request, location_id):
 
 
 # TODO: change the function name to all_events
+
+# fir checking
 def events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
