@@ -24,7 +24,6 @@ def location_detail(request, location_id):
     )
 
 
-# TODO: change the function name to all_events
 def all_events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
@@ -72,7 +71,7 @@ def create_event(request):
 
 
 # need to add a msg if event created successfully
-# TODO: look over lines 71 and 72
+
 # @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
