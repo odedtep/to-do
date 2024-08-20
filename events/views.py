@@ -33,7 +33,7 @@ def all_events(request):
     events = Event.objects.all()
 
     if location_id:
-        events = events.filter(location_id=location_id)
+        weather_events = events.filter(location_id=location_id)
         location_name = events.first().location.name
     else:
         location_name = 'Tallinn'
