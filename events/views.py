@@ -6,10 +6,12 @@ from .forms import EventForm
 from django.conf import settings
 from django.http import JsonResponse
 from django.contrib import messages
-from datetime import datetime
+from .weather_context import weather_context
 
 
 def index(request):
+    if 'weather_location' in request.session:
+        del request.session['weather_location']
     locations = Location.objects.all()
     return render(request, 'index.html', {'locations': locations})
 
@@ -38,7 +40,22 @@ def all_events(request):
         end_date_iso8601 = f"{date}T23:59:59Z"
     city = get_city(location_id)
     filtered_events = get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
-    return render(request, 'events.html', {'events': events, 'ticketmaster_events': filtered_events})
+
+    # weather widget
+    if location_id:
+        weather_location = Location.objects.filter(id=location_id).first()
+        if weather_location:
+            weather_location = weather_location.name
+            request.session['weather_location'] = weather_location
+        else:
+            weather_location = 'Tallinn'
+    else:
+        weather_location = request.session.get('weather_location', 'Tallinn')
+    weather = weather_context(request, weather_location)
+    return render(request, 'events.html', {
+        'events': events,
+        'ticketmaster_events': filtered_events,
+        **weather})
 
 
 def get_city(location_id):
@@ -70,21 +87,29 @@ def create_event(request):
     return render(request, 'create_event.html', {'form': form})
 
 
-# need to add a msg if event created successfully
-
 # @login_required
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
+    location_name = event.location.name \
+        if event.location \
+        else 'Tallinn'
+
+    if event.location:
+        request.session['weather_location'] = event.location.name
+
+    weather = weather_context(request, location_name)
+
+    participants = event.participants.count()
     if request.method == 'POST' and request.user.is_authenticated:
         if event.payment_type == Event.PAY_TO_JOIN and event.payment_amount > 0:
             CartItem.objects.get_or_create(event=event, user=request.user)
             return redirect('user_cart')
         elif event.payment_type == Event.PAY_FOR_TASK and request.user == event.creator:
             return redirect('event_detail', event_id=event.id)
-        else:
-            CartItem.objects.get_or_create(event=event, user=request.user)
-            return redirect('user_cart')
-    return render(request, 'event_detail.html', {'event': event})
+    return render(request, 'event_detail.html',
+                  {'event': event,
+                   'participants': participants,
+                   **weather})
 
 
 @login_required
@@ -191,7 +216,7 @@ def ticketmaster_event_detail(request, event_id):
             'url': event_data.get('url'),
         }
 
-        return render(request, 'ticketmaster_event_detail.html', {'event': event_details})
+        return render(request, 'ticketmaster_event_details.html', {'event': event_details})
 
     return JsonResponse({'error': 'Event not found'}, status=404)
 
