@@ -3,8 +3,9 @@
 <html lang="en">
 <head>
     <title>{% block title %}My To-Do App{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <body>
 <nav>
     <a href="{% url 'home' %}">Home</a>
@@ -23,16 +24,12 @@
         <a href="{% url 'register' %}">Register</a>
     {% endif %}
 </nav>
-<div id="weather-widget">
-    {% include 'weather.html' %}
-</div>
 <div>
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
     {% endif %}
-
     {% block content %}
     {% endblock %}
 </div>
