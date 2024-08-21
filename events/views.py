@@ -104,6 +104,7 @@ def add_to_cart(request, event_id):
 
     return redirect('user_cart')
 
+
 @login_required
 def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
@@ -143,8 +144,9 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             longitude = venue_info.get('location', {}).get('longitude')
             latitude = venue_info.get('location', {}).get('latitude')
             event_url = event.get('url')
-            # Create a new event dictionary
+
             filtered_event = {
+                'id': event.get('id'),
                 'title': event_name,
                 'image_url': third_image_url,
                 'start_date': start_date,
@@ -181,8 +183,8 @@ def ticketmaster_event_detail(request, event_id):
             'description': event_data.get('info', 'No description available.'),
             'start_date': event_data['dates']['start'].get('localDate'),
             'start_time': event_data['dates']['start'].get('localTime'),
-            'end_date': event_data['dates']['end'].get('localDate'),
-            'end_time': event_data['dates']['end'].get('localTime'),
+            # 'end_date': event_data['dates']['end'].get('localDate'),
+            # 'end_time': event_data['dates']['end'].get('localTime'),
             'venue': event_data['_embedded']['venues'][0].get('name'),
             'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),
             'city': event_data['_embedded']['venues'][0]['city'].get('name'),
