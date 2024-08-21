@@ -1,49 +1,73 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Events{% endblock %}
 
 {% block content %}
-
-<h1>Event Calendar</h1>
-<div class="calendar">
-    <h2>Upcoming events:</h2>
-    <ul>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Event Calendar</h1>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for event in events %}
-            <li>
-                <a href="{% url 'event_detail' event.id %}">
-                    {{ event.title }} - {{ event.start_date }} at
-                    {% if event.location %}
-                        {{ event.location.name }}
-                    {% else %}
-                        Unspecified location
-                    {% endif %}
-                </a>
-                {% if event.image %}
-                    <div>
-                        <img src="{{ event.image.url }}" alt="{{ event.title }} image" style="max-width: 200px; max-height: 200px;">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}" class="img-fluid rounded-start" alt="{{ event.title }} image">
+                            {% else %}
+                                <img src="{% static 'images/logo.png' %}" class="img-fluid rounded-start" alt="logo image">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ event.title }}</h5>
+                                <p class="card-text"><strong>Date:</strong> {{ event.start_date }}</p>
+                                <p class="card-text"><strong>Location:</strong> {{ event.location.name }}</p>
+                                <a href="{% url 'event_detail' event.id %}" class="btn btn-primary mt-auto">View Details</a>
+                            </div>
+                        </div>
                     </div>
-                {% else %}
-                    <div>No image available</div>
-                {% endif %}
-            </li>
+                </div>
+            </div>
         {% empty %}
-            <li>No events found for this location.</li>
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    No events found for this location.
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+
+    <h2 class="text-center my-4">Ticketmaster Events</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for event in ticketmaster_events %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if event.image_url %}
+                                <img src="{{ event.image_url }}" class="img-fluid rounded-start" alt="{{ event.title }} image">
+                            {% else %}
+                                <img src="{% static 'images/logo.png' %}" class="img-fluid rounded-start" alt="Placeholder image">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ event.title }}</h5>
+                                <p class="card-text"><strong>Date:</strong> {{ event.start_date }}</p>
+                                <p class="card-text"><strong>Location:</strong> {{ event.location }}</p>
+                                <a href="{{ event.url }}" class="btn btn-primary mt-auto">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center" role="alert">
+                    No events found for this location.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-
-<ul>
-    {% for event in ticketmaster_events %}
-        <li>
-            <a href="{{ event.url }}">
-                {{ event.title }} - {{ event.start_date }} at {{ event.location }}
-            </a>
-            <br>
-            <img width="200px" height="100px" src="{{ event.image_url }}">
-        </li>
-    {% empty %}
-        <li>No events found for this location.</li>
-    {% endfor %}
-</ul>
-
 {% endblock %}
