@@ -126,13 +126,16 @@ def add_to_cart(request, event_id):
         CartItem.objects.create(event=event, user=request.user)
         messages.success(request, 'Your event has been added to your cart.')
 
+    if not request.user in event.participants.all():
+        event.participants.add(request.user)
     return redirect('user_cart')
 
 
 @login_required
-def user_cart(request):
+def user_cart(request,):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
-    return render(request, 'user_cart.html', {'cart_items': cart_items})
+    return render(request, 'user_cart.html',
+                  {'cart_items': cart_items,})
 
 
 def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601):
