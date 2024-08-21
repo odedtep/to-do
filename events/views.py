@@ -65,7 +65,7 @@ def create_event(request):
             event.save()
             form.save_m2m()
             messages.success(request, 'Your event has been created!')
-            return redirect('all_events')  ## NEED TO BE CHANGED
+            return redirect('all_events')
     form = EventForm()
     return render(request, 'create_event.html', {'form': form})
 
@@ -103,6 +103,7 @@ def add_to_cart(request, event_id):
         messages.success(request, 'Your event has been added to your cart.')
 
     return redirect('user_cart')
+
 
 @login_required
 def user_cart(request):
@@ -161,6 +162,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
         return filtered_events
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
+
 
 # 21.08 maiken:
 def ticketmaster_event_detail(request, event_id):
