@@ -47,10 +47,8 @@ def all_events(request):
         if weather_location:
             weather_location = weather_location.name
             request.session['weather_location'] = weather_location
-        else:
-            weather_location = 'Tallinn'
-    else:
-        weather_location = request.session.get('weather_location', 'Tallinn')
+        weather_location = 'Tallinn'
+    weather_location = request.session.get('weather_location', 'Tallinn')
     weather = weather_context(request, weather_location)
     return render(request, 'events.html', {
         'events': events,
@@ -100,6 +98,7 @@ def event_detail(request, event_id):
     weather = weather_context(request, location_name)
 
     participants = event.participants.count()
+
     if request.method == 'POST' and request.user.is_authenticated:
         if event.payment_type == Event.PAY_TO_JOIN and event.payment_amount > 0:
             CartItem.objects.get_or_create(event=event, user=request.user)
