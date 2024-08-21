@@ -65,7 +65,7 @@ def create_event(request):
             event.save()
             form.save_m2m()
             messages.success(request, 'Your event has been created!')
-            return redirect('events')  ## NEED TO BE CHANGED
+            return redirect('all_events')  ## NEED TO BE CHANGED
     form = EventForm()
     return render(request, 'create_event.html', {'form': form})
 
@@ -96,9 +96,13 @@ def event_view(request, event_id):
 @login_required
 def add_to_cart(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-    CartItem.objects.create(event=event, user=request.user)
-    return redirect('user_cart')
+    if CartItem.objects.filter(event=event, user=request.user).exists():
+        messages.info(request, 'This event is already in your cart.')
+    else:
+        CartItem.objects.create(event=event, user=request.user)
+        messages.success(request, 'Your event has been added to your cart.')
 
+    return redirect('user_cart')
 
 @login_required
 def user_cart(request):
