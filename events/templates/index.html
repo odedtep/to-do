@@ -6,6 +6,7 @@
 
 <div class="find-events">
 <h1>Find Events</h1>
+<div class="find-form">
 <form method="get" action="{% url 'all_events' %}">
     <label for="location">Choose a location:</label>
     <select name="location" id="location">
@@ -17,7 +18,9 @@
 
     <label for="date">Choose a date (optional):</label>
     <input type="date" name="date" id="date">
-    <button class="btn login_btn" type="submit">Find Events</button>
+<br><br>
+    <button class="buttons-btn" type="submit">Find Events</button>
 </form>
+</div>
 </div>
 {% endblock %}

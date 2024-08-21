@@ -3,10 +3,11 @@
 {% block title %}Cart{% endblock %}
 
 {% block content %}
-
-    <h1>Your Cart</h1>
-    <div class="cart">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="container my-5">
+<h1>Your Cart</h1>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+{#    <div class="cart">#}
+{#        <div class="row row-cols-1 row-cols-md-2 g-4">#}
             {% for item in cart_items %}
                 <div class="col">
                     <div class="card h-100">
@@ -25,7 +26,7 @@
                                     <h5 class="card-title">{{ item.event.title }}</h5>
                                     <p class="card-text"><strong>Date:</strong> {{ item.event.start_date }}</p>
                                     <p class="card-text"><strong>Location:</strong> {{ item.event.location.name }}</p>
-                                    <a href="{% url 'event_view' item.event.id %}" class="btn btn-primary mt-auto">View
+                                    <a href="{% url 'event_view' item.event.id %}" class="buttons-btn">View
                                         Details</a>
                                 </div>
                             </div>

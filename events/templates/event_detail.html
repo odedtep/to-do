@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h1>{{ event.title }}</h1>
 
+<div class="add-cart">
+<h1>Add to Cart</h1>
 {% if event.description %}
 <p><strong>Description:</strong> {{ event.description }}</p>
 {% endif %}
@@ -43,10 +43,10 @@
 {% if user.is_authenticated %}
     <form method="post" action="{% url 'add_to_cart' event.id %}">
         {% csrf_token %}
-        <button type="submit">Add to Cart</button>
+        <button class="cart-btn" type="submit">&#129530; Add to Cart</button>
     </form>
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
 {% endif %}
-
+</div>
 {% endblock %}
