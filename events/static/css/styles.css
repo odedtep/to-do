@@ -1,17 +1,20 @@
 body {
-    background-color: #e9edff;
+    background-color: #bec9f8;
 }
 
 nav {
     text-align: left;
     padding: 12px;
-    background-color: #77bea2;
+    background-color: #a6b1e1;
+    text-decoration: none;
 }
+
 .nav-right {
     position: absolute;
     right: 20px;
     top: 20px;
 }
+
 a {
     text-decoration: none;
     color: #f9f9fc;
@@ -22,33 +25,33 @@ a {
     margin: 0;
     font-family: 'Verdana', sans-serif;
 }
+
 a:hover {
-    color: #D2E3FC;
-    background-color: #4285F4;
-}
-
-.create-event {
+    text-decoration: none;
+    color: #1e4d8a;
+    background-color: #8d9ad7;
     border-radius: 10px;
-    background-color: #a3cebc;
-    padding: 10px;
-    margin: 10px auto;
-    display: block;
-    width: 350px;
 }
 
-button {
+.find-events {
+    width: 20%;
+    height: 300px;
+    margin: 70px auto;
+    text-align: center;
+    background-color: #a6b1e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     padding: 20px;
-    border-radius: 15px;
-    background-color: #174EA6;
-    color: #aee4fc;
-    font-family: 'Verdana', sans-serif;
-
+    border-radius: 5px;
+    color: #fff;
 }
 
 
 .calendar {
     line-height: 2;
-    background-color: #77bea2;
+    background-color: #a6b1e1;
     border-radius: 15px;
     padding: 10px;
     margin: 15px;
@@ -56,27 +59,31 @@ button {
     text-align: left;
 }
 
+.create-event {
+    border-radius: 10px;
+    background-color: #a6b1e1;
+    padding: 10px;
+    margin: 10px auto;
+    display: block;
+    width: 350px;
+}
+
 label {
     display: block;
     margin-top: 1em;
 }
 
-.find-events {
-    background-color: #77bea2;
-    padding: 20px;
-    margin: 20px;
-    display: inline-block;
-}
 
 .cart {
-    background-color: #77bea2;
+    background-color: #e3c4a8;
     display: inline-block;
     padding: 20px;
     margin: 20px;
     border-radius: 15px;
 }
+
 .contact {
-    background-color: #e2e2ea;
+    background-color: #e3c4a8;
     padding: 15px;
     color: #000000;
     font-family: 'Verdana', sans-serif;
@@ -84,42 +91,124 @@ label {
 }
 
 /* Login page */
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 80%;
-        }
 
-        .user_card {
-            width: 30%;
-            margin-top: 5%;
-            margin-bottom: auto;
-            background: #74cfbf;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            border-radius: 5px;
+.user_card {
+    width: 30%;
+    margin: 20px;
+    background: #ec8080;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
 
-        }
+.form_container {
+    margin-top: 20px;
+}
 
-        .form_container {
-            margin-top: 20px;
-            color: #33ccff;
-        }
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 80%;
+}
 
-        #form-title {
-            color: #fff;
-        }
+.user_card {
+    width: 30%;
+    margin-top: 5%;
+    margin-bottom: auto;
+    background: #a6b1e1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
 
-        .login_btn {
-            width: 100%;
-            background: #33ccff;
-            color: white;
-        }
+    #form-title {
+        color: #fff;
+    }
 
+
+    .login_btn {
+        width: 50%;
+        height: 10%;
+        border-radius: 7px;
+        background: #809bec;
+        color: white;
+        padding: 15px;
+        margin: 5px;
+        margin-top: 40px;
+    }
+
+    /*.input-group-text {*/
+    /*    background: #79bea8;*/
+    /*    color: white;*/
+    /*    border: 0;*/
+    /*    border-radius: 0.25rem 0 0 0.25rem;*/
+    /*}*/
+
+    .input_user,
+    .input_pass:focus {
+        box-shadow: none;
+        outline: 0;
+    }
+
+    .form_container {
+        margin-top: 20px;
+        color: #8d9ad7;
+    }
+
+    #form-title {
+        color: #fff;
+    }
+
+    /*#messages {*/
+    /*    background-color: #780b0b;*/
+    /*    color: #679832;*/
+    /*    padding: 10px;*/
+    /*    margin-top: 10px;*/
+    /*}*/
+
+    .register {
+        text-align: center;
+    }
+
+    /*.alert-success {*/
+    /*    color: #155724;*/
+    /*    background-color: #D4EDDA;*/
+    /*    border-color: #C3E6CB;*/
+    /*}*/
+
+    /*.cart-btn {*/
+    /*    width: 150px;*/
+    /*    border-radius: 7px;*/
+    /*    background-color: #809bec;*/
+    /*    color: white;*/
+    /*    padding: 10px;*/
+    /*    margin: 5px;*/
+    /*}*/
+
+
+
+#weather-widget {
+    font-family: Arial, sans-serif;
+    background-color: #38d8bb;
+    padding: 5px;
+    width: 180px;
+    text-align: center;
+    box-shadow: none;
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+}

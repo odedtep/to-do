@@ -4,14 +4,12 @@
 
 {% block content %}
 
-<h1>Create Event</h1>
 <div class="create-event">
+<h1>Create Event</h1>
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Create Event</button>
+    <button class="event-btn" type="submit">Create Event</button>
     </form>
 </div>
-
 {% endblock %}
-
