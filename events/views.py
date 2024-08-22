@@ -196,6 +196,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
         filtered_events = []
         for event in events_data:
             # Extract the required fields
+            event_id = event.get('id')
             event_name = event.get('name')
             images = event.get('images', [])
             third_image_url = images[2].get('url') if len(images) > 2 else None
@@ -210,6 +211,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             event_url = event.get('url')
             # Create a new event dictionary
             filtered_event = {
+                'id': event_id,
                 'title': event_name,
                 'image_url': third_image_url,
                 'start_date': start_date,
@@ -227,7 +229,6 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
 
-# 21.08 maiken:
 def ticketmaster_event_detail(request, ticketmaster_event_id):
     print(f"ticketmaster_event_id received: {ticketmaster_event_id}")
     url = 'https://app.ticketmaster.com/discovery/v2/events/' + ticketmaster_event_id
@@ -260,7 +261,7 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
             'url': event_data.get('url'),
         }
 
-        return render(request, 'ticketmaster_event_details.html', {'event': event_details})
+        return render(request, 'ticketmaster_event_detail.html', {'event': event_details})
 
     return JsonResponse({'error': 'Event not found'}, status=404)
 

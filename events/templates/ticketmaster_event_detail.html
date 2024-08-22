@@ -53,9 +53,9 @@
 {% endif %}
 
 {% if user.is_authenticated %}
-    <form method="post" action="{% url 'add_to_cart_ticketmaster' ticketmaster_event_id %}?url={{ event.url }}>
+    <form method="post" action="{% url 'add_to_cart_ticketmaster' event.id %}?url={{ event.url }}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Add to Cart</button>
+{#        <button type = "submit" class="btn btn-primary">Add to Cart</button>#}
     </form>
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
