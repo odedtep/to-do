@@ -10,9 +10,8 @@ urlpatterns = [
     path('event/<int:event_id>/view/', views.event_view, name='event_view'),
     path('event/<int:event_id>/add_to_cart/', views.add_to_cart, name='add_to_cart'),
     path('cart/', views.user_cart, name='user_cart'),
-    # path('ticketmaster/<str:city>/', views.get_ticketmaster_events, name='ticketmaster-city')
-    # 21.08 maiken:
-    path('ticketmaster_event/<str:event_id>/', views.ticketmaster_event_detail, name='ticketmaster_event_detail'),
+    path('ticketmaster_event/<str:ticketmaster_event_id>/', views.ticketmaster_event_detail, name='ticketmaster_event_detail'),
+    path('ticketmaster_event/<str:ticketmaster_event_id>/add_to_cart/', views.add_to_cart_ticketmaster, name='add_to_cart_ticketmaster'),
 
 ]
 

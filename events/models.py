@@ -62,7 +62,12 @@ class CartItem(models.Model):
     description = models.TextField()
     event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ticketmaster_event_id = models.CharField(max_length=255, blank=True, null=True)
+    ticketmaster_event_url = models.URLField(blank=True, null=True)
     added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.event.title} added by {self.user.username}"
+        if self.event:
+            return f"{self.event.title} added by {self.user.username}"
+        else:
+            return f"Ticketmaster Event {self.ticketmaster_event_id} added by {self.user.username}"

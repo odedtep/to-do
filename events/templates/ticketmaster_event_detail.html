@@ -52,12 +52,22 @@
 </video>
 {% endif %}
 
-{#{% if event.url %}#}
-{#<p><strong>Event Link:</strong> <a href="{{ event.url }}" target="_blank">View on Ticketmaster</a></p>#}
-{#{% endif %}#}
-{##}
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'add_to_cart_ticketmaster' ticketmaster_event_id %}?url={{ event.url }}>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
+{% endif %}
+
+
+{% if event.url %}
+<p><strong>Event Link:</strong> <a href="{{ event.url }}" target="_blank">View on Ticketmaster</a></p>
+{% endif %}
+
 {#{% if user.is_authenticated %}#}
-{#    <form method="post" action="{% url 'add_to_cart' event.id %}">#}
+{#    <form method="post" action="{% url 'add_to_cart_ticketmaster' ticketmaster_event.id %}">#}
 {#        {% csrf_token %}#}
 {#        <button type="submit">Add to Cart</button>#}
 {#    </form>#}

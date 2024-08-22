@@ -55,7 +55,7 @@
                                 <h5 class="card-title">{{ event.title }}</h5>
                                 <p class="card-text"><strong>Date:</strong> {{ event.start_date }}</p>
                                 <p class="card-text"><strong>Location:</strong> {{ event.location }}</p>
-{#                                <a href="{{ event.url }}" class="btn btn-primary mt-auto">View Details</a>#}
+{#                              <a href="{{ event.url }}" class="btn btn-primary mt-auto">View Details</a>#}
                                 <a href="{% url 'ticketmaster_event_detail' event.id %}" class="btn btn-primary mt-auto">View Details</a>
 
                             </div>
