@@ -28,7 +28,7 @@
 
 {% if event.image %}
 <p><strong>Image:</strong></p>
-<img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto;">
+<img class="event-img" src="{{ event.image.url }}" alt="{{ event.title }}">
 {% endif %}
 
 {% if event.video %}
@@ -43,6 +43,7 @@
 {% if user.is_authenticated %}
     <form method="post" action="{% url 'add_to_cart' event.id %}">
         {% csrf_token %}
+        <br>
         <button class="cart-btn" type="submit">&#129530; Add to Cart</button>
     </form>
 {% else %}

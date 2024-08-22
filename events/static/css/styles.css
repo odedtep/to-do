@@ -79,7 +79,7 @@ label {
 .cart {
     display: inline-block;
     padding: 20px;
-    margin: 20px;
+    margin: 30px;
     border-radius: 15px;
 }
 
@@ -179,7 +179,7 @@ html {
     margin: 20px auto;
     border-radius: 10px;
     width: 200px;
-    text-align: center;
+    text-align: left;
     box-shadow: none;
     position: absolute;
     right: 10px;
@@ -219,6 +219,19 @@ h2 {
     font-family: 'Verdana', sans-serif;
 }
 
+.login-btn{
+    border-radius: 70px;
+    background-color: #efefed;
+    width: 60%;
+    height: 30%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    transform: translateY(-7%);
+    top: 50%;
+    left: 10px;
+
+}
+
 .find-form {
     font-family: 'Verdana', sans-serif;
     line-height: 2;
@@ -229,7 +242,7 @@ h2 {
 
 .cart-btn {
     width: 200px;
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
     font-family: 'Verdana', sans-serif;
 }
@@ -237,11 +250,51 @@ h2 {
 .add-cart {
     background-color: #b8c9b5;
     width: 30%;
-    margin: 20px auto;
+    margin: 10px auto;
     padding: 10px;
     height: 350px;
     text-align: center;
     font-family: 'Verdana', sans-serif;
     line-height: 2;
     border-radius: 10px;
+}
+
+.user_card {
+    color: #b5c9b1;
+    background-color: #c5d0c2;
+}
+
+.event-img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.alert-success {
+    color: #024977;
+    background-color: #b8c9b5;
+    border-color: #C3E6CB;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+}
+
+.alert-error {
+    color: #024977;
+    background-color: #b8c9b5;
+    border-color: #C3E6CB;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+}
+
+.register-card {
+    line-height: 2;
+    border-radius: 10px;
+    text-align: center;
+    color: #264b5d;
 }
