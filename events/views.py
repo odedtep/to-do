@@ -148,13 +148,16 @@ def add_to_cart(request, event_id=None):
 def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
     if ticketmaster_event_id:
         ticketmaster_event_url = request.GET.get('url')  # You need to pass this in the GET request
-        title = request.GET.get('event_name')  # You need to pass this in the GET request
+        name = request.GET.get('name')  # You need to pass this in the GET request
+        if not name:
+            messages.error(request, 'Event title is missing.')
+            return redirect('all_events')
         description = request.GET.get('description', 'No description available')  # Optional
         if CartItem.objects.filter(ticketmaster_event_id=ticketmaster_event_id, user=request.user).exists():
             messages.info(request, 'This event has been added to your cart.')
         else:
             CartItem.objects.create(
-                title=title,
+                title=name,
                 description=description,
                 ticketmaster_event_id=ticketmaster_event_id,
                 ticketmaster_event_url=ticketmaster_event_url,
@@ -197,7 +200,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
         for event in events_data:
             # Extract the required fields
             event_id = event.get('id')
-            event_name = event.get('name')
+            name = event.get('name')
             images = event.get('images', [])
             third_image_url = images[2].get('url') if len(images) > 2 else None
             start_date = event.get('dates', {}).get('start', {}).get('localDate')
@@ -212,7 +215,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             # Create a new event dictionary
             filtered_event = {
                 'id': event_id,
-                'title': event_name,
+                'name': name,
                 'image_url': third_image_url,
                 'start_date': start_date,
                 'start_time': start_time,
@@ -242,14 +245,14 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
 
     if response.status_code == 200:
         event_data = response.json()
-        event_title = event_data.get('name')
+        name = event_data.get('name')
 
-        if not event_title:
-            event_title = "Default event title"
+        # if not name:
+        #     name = "Default event title"
 
         event_details = {
             'id': ticketmaster_event_id,
-            'title': event_title,
+            'name': event_data.get('name'),
             'description': event_data.get('info', 'No description available.'),
             'start_date': event_data['dates']['start'].get('localDate'),
             'start_time': event_data['dates']['start'].get('localTime'),
