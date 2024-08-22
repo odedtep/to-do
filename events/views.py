@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .weather_context import weather_context
 
+def landing_page(request):
+    return render(request, 'landing.html')
 
 def index(request):
     if 'weather_location' in request.session:
