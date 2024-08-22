@@ -3,7 +3,7 @@
 {% block title %}Events{% endblock %}
 
 {% block content %}
-<div class="evnt-calendar">
+<div class="event-calendar">
     <h1 class="text-center mb-4">Event Calendar</h1>
     <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for event in events %}
@@ -55,7 +55,7 @@
                                 <h5 class="card-title">{{ event.title }}</h5>
                                 <p class="card-text"><strong>Date:</strong> {{ event.start_date }}</p>
                                 <p class="card-text"><strong>Location:</strong> {{ event.location }}</p>
-                                <a href="{{ event.url }}" class="btn btn-primary mt-auto">View Details</a>
+                                <a href="{{ event.url }}" class="buttons-btn">View Details</a>
                             </div>
                         </div>
                     </div>
