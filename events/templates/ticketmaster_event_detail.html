@@ -57,7 +57,7 @@
  {% if event.url %}
 <p>
     <strong>Buy tickets</strong>
-    <a href="{{ event.url }}" target="_blank" class="btn btn-secondary">here</a></p>
+    <a href="{{ event.url }}" target="_blank" class="buttons-btn">here</a></p>
 {% endif %}
 <div class="cart-btn">
 {% if user.is_authenticated %}
@@ -69,14 +69,19 @@
         <input type="hidden" name="description" value="{{ event.description }}">
         <input type="hidden" name="start_date" value="{{ event.start_date }}">
         <input type="hidden" name="url" value="{{ event.url }}">
-        <button type="submit" class="btn btn-primary">Add to Cart</button>
+        <button type="submit" class="buttons-btn">Add to Cart</button>
     </form>
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
 {% endif %}
 
 </div>
-
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'delete_event_from_cart_ticketmaster' event.id %}" style="margin-top: 20px;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Remove from Cart</button>
+    </form>
+{% endif %}
 {#{% if user.is_authenticated %}#}
 {#    <form method="post" action="{% url 'add_to_cart_ticketmaster' ticketmaster_event.id %}">#}
 {#        {% csrf_token %}#}
@@ -85,6 +90,5 @@
 {#{% else %}#}
 {#    <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>#}
 {#{% endif %}#}
-
-{% endblock %}
 </div>
+{% endblock %}

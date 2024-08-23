@@ -286,3 +286,11 @@ def delete_event(request, event_id):
     event.delete()
     messages.success(request, "The event has been successfully deleted.")
     return redirect('all_events')
+
+@login_required
+@require_POST
+def delete_event_from_cart_ticketmaster(request, ticketmaster_event_id):
+    user_cart_item = get_object_or_404(CartItem, user=request.user, ticketmaster_event_id=ticketmaster_event_id)
+    user_cart_item.delete()
+    messages.success(request, 'The Ticketmaster event has been successfully removed from your cart.')
+    return redirect('user_cart')

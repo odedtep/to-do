@@ -10,6 +10,7 @@ h2 {
 
 body {
     background-color: #dfe1da;
+    font-family: 'Verdana', sans-serif;
 }
 
 nav {
@@ -85,7 +86,7 @@ a:hover {
     transform: translateY(-50%);
 }
 
- /*Buttons*/
+/*Buttons*/
 .login_btn {
     width: 50%;
     height: 10%;
@@ -105,7 +106,7 @@ a:hover {
     font-family: 'Verdana', sans-serif;
 }
 
-.login-btn{
+.login-btn {
     border-radius: 70px;
     background-color: #bcd0bc;
     width: 40%;
@@ -124,6 +125,11 @@ a:hover {
     border-radius: 10px;
     font-family: 'Verdana', sans-serif;
     margin: auto;
+}
+
+.cart-btn form button.btn-danger {
+    margin-left: 40px;
+    margin-top: 10px;
 }
 
 /* Templates */
@@ -154,13 +160,13 @@ a:hover {
     width: 30%;
     height: 400px;
     margin: 30px auto;
-    text-align: center;
+    text-align: Center;
     background-color: #c0cebf;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 50px;
     border-radius: 100px;
     color: #366c33;
     font-family: 'Verdana', sans-serif;
@@ -168,7 +174,11 @@ a:hover {
 }
 
 .find-form {
-    text-align: left;
+    text-align: center;
+}
+
+.find-form button.buttons-btn {
+    margin-top: 20px;
 }
 
 .event-calendar {
@@ -182,15 +192,16 @@ a:hover {
     max-width: 85%;
     font-family: 'Verdana', sans-serif
 }
+
 .ticketmaster-calendar {
-    margin-top: 40px;
-    max-width: 50%;
-     line-height: 2;
+    line-height: 2;
     background-color: #e0e0d8;
     border-radius: 15px;
     padding: 10px;
+    margin: 15px auto;
     display: inline-block;
     text-align: left;
+    max-width: 85%;
     font-family: 'Verdana', sans-serif
 }
 
@@ -242,7 +253,6 @@ a:hover {
     max-width: 70%;
     height: auto;
     border-radius: 80px;
-    margin: 10px auto;
 }
 
 .event-view {
@@ -256,9 +266,9 @@ a:hover {
 }
 
 .event-image {
-    width: 400px;
+    width: 300px;
     height: 200px;
-    margin: 10px auto;
+    margin: 10px;
     padding: 5px;
     border-radius: 80px;
 }
@@ -279,13 +289,13 @@ html {
 }
 
 #form-title {
-        color: #ee0808;
-    }
+    color: #ee0808;
+}
 
 .input_user,
 .input_pass:focus {
-        box-shadow: none;
-        outline: 0;
+    box-shadow: none;
+    outline: 0;
 }
 
 

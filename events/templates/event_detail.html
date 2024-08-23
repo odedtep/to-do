@@ -3,11 +3,6 @@
 <title>{% block title %}Add to Cart{% endblock %}</title>
 
 {% block content %}
-<div class="event-image">
-{% if event.image %}
-<img class="event-image" src="{{ event.image.url }}" alt="{{ event.title }}">
-{% endif %}
-</div>
     <br>
 <div class="add-cart">
 <h1>{{ event.title }}</h1>
@@ -32,7 +27,7 @@
 
     {% if event.image %}
 <p><strong>Image:</strong></p>
-<img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto; max-height: 300px; object-fit: contain;">
+<img class="event-image" src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto; max-height: 300px; object-fit: contain;">
 
 {% endif %}
 
@@ -52,14 +47,15 @@
             <button class="cart-btn" type="submit">&#129530;Add to Cart</button>
         </form>
     {% else %}
-        <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
+        <a class="cart-btn" href="{% url 'login' %}" >Log in to add this event to your cart.</a>
     {% endif %}
 
     {% if user == event.creator %}
-        <form action="{% url 'delete_event' event.id %}" method="post">
+        <form action="{% url 'delete_event' event.id %}" method="post" >
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Delete Event</button>
         </form>
     {% endif %}
 </div>
 {% endblock %}
+</div>
