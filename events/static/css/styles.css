@@ -1,11 +1,21 @@
+h1 {
+    text-align: center;
+    color: #3f6b2f;
+}
+
+h2 {
+    text-align: center;
+    color: #3f6b2f;
+}
+
 body {
-    background-color: #bec9f8;
+    background-color: #dfe1da;
 }
 
 nav {
     text-align: left;
     padding: 12px;
-    background-color: #a6b1e1;
+    background-color: #efefed;
     text-decoration: none;
 }
 
@@ -15,9 +25,31 @@ nav {
     top: 20px;
 }
 
+.alert-success {
+    color: #2f7257;
+    background-color: #f9faf8;
+    border-color: #C3E6CB;
+    padding: 10px;
+    margin: 10px;
+    width: 20%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+}
+
+.alert-error {
+    color: #2f7257;
+    background-color: #f9faf8;
+    border-color: #C3E6CB;
+    padding: 10px;
+    margin: 10px;
+    width: 50%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+}
+
 a {
     text-decoration: none;
-    color: #f9f9fc;
+    color: #315231;
     background-color: transparent;
     padding: 12px;
     line-height: 2.5;
@@ -28,58 +60,207 @@ a {
 
 a:hover {
     text-decoration: none;
-    color: #1e4d8a;
-    background-color: #8d9ad7;
+    color: #076c50;
+    background-color: #c5d0c2;
+    border-radius: 10px
+}
+
+.nav-logo {
+    width: 100px;
+    height: 70px;
+}
+
+#weather-widget {
+    font-family: 'Verdana', sans-serif;
+    background-color: #bfe4fc;
+    padding: 10px;
+    margin: 20px auto;
     border-radius: 10px;
+    width: 200px;
+    text-align: left;
+    box-shadow: none;
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+}
+
+ /*Buttons*/
+.login_btn {
+    width: 50%;
+    height: 10%;
+    border-radius: 2px;
+    background: #cbe7ca;
+    color: #b8cba8;
+    padding: 15px;
+    margin: 50px;
+}
+
+.buttons-btn {
+    border-radius: 10px;
+    background-color: #dae5d9;
+    width: 60%;
+    height: 20%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+}
+
+.login-btn{
+    border-radius: 70px;
+    background-color: #bcd0bc;
+    width: 40%;
+    height: 30%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    transform: translateY(-7%);
+    top: 50%;
+    left: 10px;
+
+}
+
+.cart-btn {
+    width: 200px;
+    padding: 8px;
+    border-radius: 10px;
+    font-family: 'Verdana', sans-serif;
+    margin: auto;
+}
+
+/* Templates */
+/* Login page */
+
+.user_card {
+    width: 30%;
+    margin: 20px;
+    background: #e8e8df;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
+
+.register-card {
+    border-radius: 100px;
+    text-align: center;
+    color: #02281a;
 }
 
 .find-events {
-    width: 20%;
-    height: 300px;
-    margin: 70px auto;
+    width: 30%;
+    height: 400px;
+    margin: 30px auto;
     text-align: center;
-    background-color: #a6b1e1;
+    background-color: #c0cebf;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 20px;
-    border-radius: 5px;
-    color: #fff;
+    border-radius: 100px;
+    color: #366c33;
+    font-family: 'Verdana', sans-serif;
+    line-height: 2;
 }
 
+.find-form {
+    text-align: left;
+}
 
-.calendar {
+.event-calendar {
     line-height: 2;
-    background-color: #a6b1e1;
+    background-color: #e0e0d8;
     border-radius: 15px;
     padding: 10px;
-    margin: 15px;
+    margin: 15px auto;
     display: inline-block;
     text-align: left;
+    max-width: 85%;
+    font-family: 'Verdana', sans-serif
+}
+.ticketmaster-calendar {
+    margin-top: 40px;
+    max-width: 50%;
+     line-height: 2;
+    background-color: #e0e0d8;
+    border-radius: 15px;
+    padding: 10px;
+    display: inline-block;
+    text-align: left;
+    font-family: 'Verdana', sans-serif
 }
 
 .create-event {
     border-radius: 10px;
-    background-color: #a6b1e1;
+    background-color: #c0cebf;
     padding: 10px;
-    margin: 10px auto;
+    margin: 20px auto;
     display: block;
-    width: 350px;
+    width: 500px;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    color: #0c5237;
 }
-
-label {
-    display: block;
-    margin-top: 1em;
-}
-
 
 .cart {
-    background-color: #e3c4a8;
     display: inline-block;
     padding: 20px;
-    margin: 20px;
+    margin: 30px;
     border-radius: 15px;
+}
+
+.cart-view {
+    line-height: 2;
+    background-color: #e0e0d8;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 15px auto;
+    display: inline-block;
+    text-align: left;
+    font-family: 'Verdana', sans-serif;
+    width: 85%;
+}
+
+.add-cart {
+    background-color: #b8c9b5;
+    width: 30%;
+    margin: 10px auto;
+    padding: 10px;
+    height: 80%;
+    text-align: left;
+    font-family: 'Verdana', sans-serif;
+    line-height: 1.5;
+    border-radius: 10px;
+}
+
+
+.event-img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 80px;
+    margin: 10px auto;
+}
+
+.event-view {
+    background-color: #cad7ca;
+    text-align: left;
+    width: 30%;
+    border-radius: 50px;
+    margin: 10px;
+    padding: 10px;
+    position: absolute;
+}
+
+.event-image {
+    width: 400px;
+    height: 200px;
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 80px;
 }
 
 .contact {
@@ -90,27 +271,6 @@ label {
     font-size: small;
 }
 
-/* Login page */
-
-.user_card {
-    width: 30%;
-    margin: 20px;
-    background: #ec8080;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
-}
-
-.form_container {
-    margin-top: 20px;
-}
-
 body,
 html {
     margin: 0;
@@ -118,97 +278,14 @@ html {
     height: 80%;
 }
 
-.user_card {
-    width: 30%;
-    margin-top: 5%;
-    margin-bottom: auto;
-    background: #a6b1e1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
-}
-
-    #form-title {
-        color: #fff;
+#form-title {
+        color: #ee0808;
     }
 
-
-    .login_btn {
-        width: 50%;
-        height: 10%;
-        border-radius: 7px;
-        background: #809bec;
-        color: white;
-        padding: 15px;
-        margin: 5px;
-        margin-top: 40px;
-    }
-
-    /*.input-group-text {*/
-    /*    background: #79bea8;*/
-    /*    color: white;*/
-    /*    border: 0;*/
-    /*    border-radius: 0.25rem 0 0 0.25rem;*/
-    /*}*/
-
-    .input_user,
-    .input_pass:focus {
+.input_user,
+.input_pass:focus {
         box-shadow: none;
         outline: 0;
-    }
-
-    .form_container {
-        margin-top: 20px;
-        color: #8d9ad7;
-    }
-
-    #form-title {
-        color: #fff;
-    }
-
-    /*#messages {*/
-    /*    background-color: #780b0b;*/
-    /*    color: #679832;*/
-    /*    padding: 10px;*/
-    /*    margin-top: 10px;*/
-    /*}*/
-
-    .register {
-        text-align: center;
-    }
-
-    /*.alert-success {*/
-    /*    color: #155724;*/
-    /*    background-color: #D4EDDA;*/
-    /*    border-color: #C3E6CB;*/
-    /*}*/
-
-    /*.cart-btn {*/
-    /*    width: 150px;*/
-    /*    border-radius: 7px;*/
-    /*    background-color: #809bec;*/
-    /*    color: white;*/
-    /*    padding: 10px;*/
-    /*    margin: 5px;*/
-    /*}*/
-
-
-
-#weather-widget {
-    font-family: Arial, sans-serif;
-    background-color: #38d8bb;
-    padding: 5px;
-    width: 180px;
-    text-align: center;
-    box-shadow: none;
-    position: absolute;
-    right: 10px;
-    top: 35%;
-    transform: translateY(-50%);
 }
+
+

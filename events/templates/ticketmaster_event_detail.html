@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+    <div class="add-cart">
 <h1>{{ event.name }}</h1>
 
 {% if event.description %}
@@ -57,7 +59,7 @@
     <strong>Buy tickets</strong>
     <a href="{{ event.url }}" target="_blank" class="btn btn-secondary">here</a></p>
 {% endif %}
-
+<div class="cart-btn">
 {% if user.is_authenticated %}
     <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
         {% csrf_token %}
@@ -73,7 +75,7 @@
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
 {% endif %}
 
-
+</div>
 
 {#{% if user.is_authenticated %}#}
 {#    <form method="post" action="{% url 'add_to_cart_ticketmaster' ticketmaster_event.id %}">#}
@@ -85,3 +87,4 @@
 {#{% endif %}#}
 
 {% endblock %}
+</div>

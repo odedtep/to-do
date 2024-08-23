@@ -13,6 +13,7 @@ from django.views.decorators.http import require_POST
 def landing_page(request):
     return render(request, 'landing.html')
 
+
 def index(request):
     if 'weather_location' in request.session:
         del request.session['weather_location']
@@ -136,6 +137,7 @@ def add_to_cart(request, event_id=None):
         messages.error(request, 'Invalid request.')
     return redirect('user_cart')
 
+
 def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
     if ticketmaster_event_id:
         ticketmaster_event_url = request.GET.get('url')
@@ -167,11 +169,12 @@ def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
         messages.error(request, 'Invalid request.')
     return redirect('user_cart')
 
+
 @login_required
 def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html',
-                  {'cart_items': cart_items,})
+                  {'cart_items': cart_items, })
 
 
 def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601):
@@ -229,6 +232,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
 
+
 def ticketmaster_event_detail(request, ticketmaster_event_id):
     print(f"ticketmaster_event_id received: {ticketmaster_event_id}")
     url = 'https://app.ticketmaster.com/discovery/v2/events/' + ticketmaster_event_id
@@ -259,6 +263,7 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
         return render(request, 'ticketmaster_event_detail.html', {'event': event_details})
 
     return JsonResponse({'error': 'Event not found'}, status=404)
+
 
 @login_required
 @require_POST

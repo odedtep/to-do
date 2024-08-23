@@ -3,9 +3,10 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
 <div class="find-events">
 <h1>Find Events</h1>
+<br>
+<div class="find-form">
 <form method="get" action="{% url 'all_events' %}">
     <label for="location">Choose a location:</label>
     <select name="location" id="location">
@@ -17,7 +18,14 @@
 
     <label for="date">Choose a date (optional):</label>
     <input type="date" name="date" id="date">
-    <button class="btn login_btn" type="submit">Find Events</button>
-</form>
 </div>
+
+<br>
+ <button class="buttons-btn" type="submit">Find Events</button>
+
+</form>
+
+</div>
+
+
 {% endblock %}
