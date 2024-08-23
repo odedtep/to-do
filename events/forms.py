@@ -9,7 +9,7 @@ class EventForm(forms.ModelForm):
             'end_time', 'category', 'location', 'visibility', 'invited_users',
             'payment_type', 'payment_amount',
             'image',
-            'video'
+            'video',
         ]
         widgets = {
             'invited_users': forms.CheckboxSelectMultiple(),

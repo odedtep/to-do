@@ -26,18 +26,19 @@
         <p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
     {% endif %}
 
-    {% if event.image %}
-        <p><strong>Image:</strong></p>
-        <img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto;">
-    {% endif %}
+{% if event.image %}
+<p><strong>Image:</strong></p>
+<img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto; max-height: 300px; object-fit: contain;">
 
-    {% if event.video %}
-        <p><strong>Video:</strong></p>
-        <video controls style="max-width: 100%; height: auto;">
-            <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
-            Your browser does not support the video tag.
-        </video>
-    {% endif %}
+{% endif %}
+
+{% if event.video %}
+<p><strong>Video:</strong></p>
+<video controls style="max-width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+    <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
+    Your browser does not support the video tag.
+</video>
+{% endif %}
 
 
     {% if user.is_authenticated %}

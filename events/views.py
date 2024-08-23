@@ -122,21 +122,53 @@ def event_view(request, event_id):
 
 
 @login_required
-def add_to_cart(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
-    if CartItem.objects.filter(event=event, user=request.user).exists():
-        messages.info(request, 'This event is already in your cart.')
-    else:
-        CartItem.objects.create(event=event, user=request.user)
-        messages.success(request, 'Your event has been added to your cart.')
+def add_to_cart(request, event_id=None):
+    if event_id:
+        # Handle user-created event
+        event = get_object_or_404(Event, id=event_id)
+        if CartItem.objects.filter(event=event, user=request.user).exists():
+            messages.info(request, 'This event is already in your cart.')
+        else:
+            CartItem.objects.create(event=event, user=request.user)
+            messages.success(request, 'Your event has been added to your cart.')
 
-    if not request.user in event.participants.all():
-        event.participants.add(request.user)
+    else:
+        messages.error(request, 'Invalid request.')
     return redirect('user_cart')
 
+def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
+    if ticketmaster_event_id:
+        ticketmaster_event_url = request.GET.get('url')
+        name = request.GET.get('name')
+        image_url = request.GET.get('image_url')
+        location = request.GET.get('location')
+        description = request.GET.get('description', 'No description available')
+        start_date = request.GET.get('start_date')
+
+        if not name or not ticketmaster_event_url:
+            messages.error(request, 'Missing needed event details.')
+            return redirect('all_events')
+
+        if CartItem.objects.filter(ticketmaster_event_id=ticketmaster_event_id, user=request.user).exists():
+            messages.info(request, 'This event has been added to your cart.')
+        else:
+            CartItem.objects.create(
+                title=name,
+                location=location,
+                description=description,
+                ticketmaster_event_id=ticketmaster_event_id,
+                ticketmaster_event_url=ticketmaster_event_url,
+                image_url=image_url,
+                start_date=start_date,
+                user=request.user
+            )
+            messages.success(request, 'Event has been added to your cart.')
+    else:
+        messages.error(request, 'Invalid request.')
+    return redirect('user_cart')
 
 @login_required
-def user_cart(request,):
+def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html',
                   {'cart_items': cart_items,})
@@ -153,19 +185,20 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
     }
     try:
         response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise an exception for 4xx/5xx errors
+        response.raise_for_status()
     except requests.exceptions.RequestException as e:
         return JsonResponse({'error': str(e)}, status=500)
-    # response = requests.get(url, params=params)
+
     if response.status_code == 200:
         data = response.json()
         events_data = data.get('_embedded', {}).get('events', [])
         filtered_events = []
         for event in events_data:
             # Extract the required fields
-            event_name = event.get('name')
+            event_id = event.get('id')
+            name = event.get('name')
             images = event.get('images', [])
-            third_image_url = images[2].get('url') if len(images) > 2 else None
+            image_url = images[0].get('url') if images else None
             start_date = event.get('dates', {}).get('start', {}).get('localDate')
             start_time = event.get('dates', {}).get('start', {}).get('localTime')
             venue_info = event.get('_embedded', {}).get('venues', [{}])[0]
@@ -177,8 +210,9 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             event_url = event.get('url')
             # Create a new event dictionary
             filtered_event = {
-                'title': event_name,
-                'image_url': third_image_url,
+                'id': event_id,
+                'name': name,
+                'image_url': image_url,
                 'start_date': start_date,
                 'start_time': start_time,
                 'location': city_name,
@@ -190,15 +224,14 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             }
             # print(start_date)
             filtered_events.append(filtered_event)
+
         return filtered_events
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
 
-
-# 21.08 maiken:
-def ticketmaster_event_detail(request, event_id):
-    # Fetch event details from Ticketmaster using the event ID
-    url = 'https://app.ticketmaster.com/discovery/v2/events/' + event_id
+def ticketmaster_event_detail(request, ticketmaster_event_id):
+    print(f"ticketmaster_event_id received: {ticketmaster_event_id}")
+    url = 'https://app.ticketmaster.com/discovery/v2/events/' + ticketmaster_event_id
     params = {'apikey': settings.TICKETMASTER_API_KEY}
 
     try:
@@ -210,19 +243,20 @@ def ticketmaster_event_detail(request, event_id):
     if response.status_code == 200:
         event_data = response.json()
         event_details = {
-            'title': event_data.get('name'),
+            'id': ticketmaster_event_id,
+            'name': event_data.get('name'),
             'description': event_data.get('info', 'No description available.'),
             'start_date': event_data['dates']['start'].get('localDate'),
             'start_time': event_data['dates']['start'].get('localTime'),
-            'end_date': event_data['dates']['end'].get('localDate'),
-            'end_time': event_data['dates']['end'].get('localTime'),
+            # 'end_date': event_data['dates']['end'].get('localDate'),
+            # 'end_time': event_data['dates']['end'].get('localTime'),
             'venue': event_data['_embedded']['venues'][0].get('name'),
             'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),
             'city': event_data['_embedded']['venues'][0]['city'].get('name'),
             'url': event_data.get('url'),
         }
 
-        return render(request, 'ticketmaster_event_details.html', {'event': event_details})
+        return render(request, 'ticketmaster_event_detail.html', {'event': event_details})
 
     return JsonResponse({'error': 'Event not found'}, status=404)
 
