@@ -127,6 +127,9 @@ def add_to_cart(request, event_id=None):
     if event_id:
         # Handle user-created event
         event = get_object_or_404(Event, id=event_id)
+        if not request.user in event.participants.all():
+            event.participants.add(request.user)
+
         if CartItem.objects.filter(event=event, user=request.user).exists():
             messages.info(request, 'This event is already in your cart.')
         else:
