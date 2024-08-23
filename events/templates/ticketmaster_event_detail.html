@@ -52,18 +52,27 @@
 </video>
 {% endif %}
 
+ {% if event.url %}
+<p>
+    <strong>Buy tickets</strong>
+    <a href="{{ event.url }}" target="_blank" class="btn btn-secondary">here</a></p>
+{% endif %}
 
 {% if user.is_authenticated %}
-    <form method="post" action="{% url 'add_to_cart_ticketmaster' event.id %}?name={{ event.name }}&url={{ event.url }}">
+    <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
         {% csrf_token %}
-         <button type = "submit" class="btn btn-primary">Add to Cart</button>
+        <input type="hidden" name="name" value="{{ event.name }}">
+        <input type="hidden" name="image_url" value="{{ event.image_url }}">
+        <input type="hidden" name="location" value="{{ event.location }}">
+        <input type="hidden" name="description" value="{{ event.description }}">
+        <input type="hidden" name="start_date" value="{{ event.start_date }}">
+        <input type="hidden" name="url" value="{{ event.url }}">
+        <button type="submit" class="btn btn-primary">Add to Cart</button>
     </form>
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
 {% endif %}
- {% if event.url %}
-<p><strong>Event Link:</strong> <a href="{{ event.url }}" target="_blank">View on Ticketmaster</a></p>
-{% endif %}
+
 
 
 {#{% if user.is_authenticated %}#}

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}Cart{% endblock %}
 
 {% block content %}
@@ -12,10 +13,10 @@
                 <div class="card h-100">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            {% if item.event and item.event.image %}
-                                <img src="{{ item.event.image.url }}" class="img-fluid rounded-start"
-                                     alt="{{ item.event.title }} image">
-                            {% elif item.ticketmaster_event_id and item.image_url %}
+{#                            {% if item.event and item.event.image %}#}
+{#                                <img src="{{ item.event.image.url }}" class="img-fluid rounded-start"#}
+{#                                     alt="{{ item.event.title }} image">#}
+                            {% if item.ticketmaster_event_id and item.image_url %}
                                 <img src="{{ item.image_url }}" class="img-fluid rounded-start"
                                      alt="{{ item.title }} image">
                             {% else %}
@@ -51,7 +52,8 @@
                                 {% if item.event %}
                                     <a href="{% url 'event_view' item.event.id %}" class="btn btn-primary mt-auto">View Details</a>
                                 {% else %}
-                                    <a href="{{ item.ticketmaster_event_url }}" class="btn btn-primary mt-auto" target="_blank">View on Ticketmaster</a>
+                                    <a href="{{ item.ticketmaster_event_url }}" class="btn btn-primary mt-auto" target="_blank">Buy tickets here</a>
+                                    <a href="{% url 'ticketmaster_event_detail' item.ticketmaster_event_id %}" class="btn btn-primary mt-auto">View Details</a>
                                 {% endif %}
                             </div>
                         </div>

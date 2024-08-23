@@ -64,6 +64,9 @@ class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ticketmaster_event_id = models.CharField(max_length=255, blank=True, null=True)
     ticketmaster_event_url = models.URLField(blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)  # Add this line to store image URL for Ticketmaster events
+    location = models.CharField(max_length=255, blank=True, null=True)  # Add this line to store location
+    start_date = models.DateField(blank=True, null=True)  # Add this line to store the event date
     added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):

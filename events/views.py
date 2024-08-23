@@ -147,29 +147,40 @@ def add_to_cart(request, event_id=None):
 
 def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
     if ticketmaster_event_id:
-        ticketmaster_event_url = request.GET.get('url')  # You need to pass this in the GET request
-        name = request.GET.get('name')  # You need to pass this in the GET request
-        if not name:
-            messages.error(request, 'Event title is missing.')
+        ticketmaster_event_url = request.GET.get('url')
+        name = request.GET.get('name')
+        image_url = request.GET.get('image_url')
+        location = request.GET.get('location')
+        description = request.GET.get('description', 'No description available')
+        start_date = request.GET.get('start_date')
+
+        print(f"DEBUG: Name: {name}")
+        print(f"DEBUG: Image URL: {image_url}")
+        print(f"DEBUG: Location: {location}")
+        print(f"DEBUG: Start Date: {start_date}")
+        print(f"DEBUG: Ticketmaster Event ID: {ticketmaster_event_id}")
+
+        if not name or not ticketmaster_event_url:
+            messages.error(request, 'Missing needed event details.')
             return redirect('all_events')
-        description = request.GET.get('description', 'No description available')  # Optional
+
         if CartItem.objects.filter(ticketmaster_event_id=ticketmaster_event_id, user=request.user).exists():
             messages.info(request, 'This event has been added to your cart.')
         else:
             CartItem.objects.create(
                 title=name,
+                location=location,
                 description=description,
                 ticketmaster_event_id=ticketmaster_event_id,
                 ticketmaster_event_url=ticketmaster_event_url,
+                image_url=image_url,
+                start_date=start_date,
                 user=request.user
             )
-            messages.success(request, 'The Ticketmaster event has been added to your cart.')
+            messages.success(request, 'Event has been added to your cart.')
     else:
         messages.error(request, 'Invalid request.')
     return redirect('user_cart')
-
-
-
 
 @login_required
 def user_cart(request):
@@ -189,7 +200,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
     }
     try:
         response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise an exception for 4xx/5xx errors
+        response.raise_for_status()
     except requests.exceptions.RequestException as e:
         return JsonResponse({'error': str(e)}, status=500)
 
@@ -202,7 +213,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             event_id = event.get('id')
             name = event.get('name')
             images = event.get('images', [])
-            third_image_url = images[2].get('url') if len(images) > 2 else None
+            image_url = images[0].get('url') if images else None
             start_date = event.get('dates', {}).get('start', {}).get('localDate')
             start_time = event.get('dates', {}).get('start', {}).get('localTime')
             venue_info = event.get('_embedded', {}).get('venues', [{}])[0]
@@ -216,7 +227,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             filtered_event = {
                 'id': event_id,
                 'name': name,
-                'image_url': third_image_url,
+                'image_url': image_url,
                 'start_date': start_date,
                 'start_time': start_time,
                 'location': city_name,
@@ -228,6 +239,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             }
             # print(start_date)
             filtered_events.append(filtered_event)
+
         return filtered_events
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
@@ -245,7 +257,7 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
 
     if response.status_code == 200:
         event_data = response.json()
-        name = event_data.get('name')
+        # name = event_data.get('name')
 
         # if not name:
         #     name = "Default event title"
