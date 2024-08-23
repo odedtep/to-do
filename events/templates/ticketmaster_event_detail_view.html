@@ -61,28 +61,14 @@
 {% endif %}
 <div class="cart-btn">
 {% if user.is_authenticated %}
-    <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
+     <form method="post" action="{% url 'delete_event_from_cart_ticketmaster' event.id %}" style="margin-top: 20px;">
         {% csrf_token %}
-        <input type="hidden" name="name" value="{{ event.name }}">
-        <input type="hidden" name="image_url" value="{{ event.image_url }}">
-        <input type="hidden" name="location" value="{{ event.location }}">
-        <input type="hidden" name="description" value="{{ event.description }}">
-        <input type="hidden" name="start_date" value="{{ event.start_date }}">
-        <input type="hidden" name="url" value="{{ event.url }}">
-        <button type="submit" class="buttons-btn">Add to Cart</button>
+        <button type="submit" class="btn btn-danger">Remove from Cart</button>
     </form>
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
 {% endif %}
 
 </div>
-{#{% if user.is_authenticated %}#}
-{#    <form method="post" action="{% url 'add_to_cart_ticketmaster' ticketmaster_event.id %}">#}
-{#        {% csrf_token %}#}
-{#        <button type="submit">Add to Cart</button>#}
-{#    </form>#}
-{#{% else %}#}
-{#    <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>#}
-{#{% endif %}#}
 </div>
 {% endblock %}
