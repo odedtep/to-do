@@ -1,5 +1,5 @@
 from django.urls import path
-
+from .views import delete_event_from_cart
 from . import views
 
 urlpatterns = [
@@ -13,6 +13,9 @@ urlpatterns = [
     path('cart/', views.user_cart, name='user_cart'),
     path('ticketmaster_event/<str:ticketmaster_event_id>/', views.ticketmaster_event_detail, name='ticketmaster_event_detail'),
     path('ticketmaster_event/<str:ticketmaster_event_id>/add_to_cart/', views.add_to_cart_ticketmaster, name='add_to_cart_ticketmaster'),
+    path('event/<int:event_id>/delete/', delete_event_from_cart, name='delete_event_from_cart'),
+    path('event/delete/<int:event_id>/', views.delete_event, name='delete_event'),
+
 
 ]
 
