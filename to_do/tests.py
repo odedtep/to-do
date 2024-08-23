@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -40,3 +41,19 @@ class AddToCartTests(TestCase):
         initial_count = CartItem.objects.count()
         self.client.get(reverse('add_to_cart', args=[self.event.id]))
         self.assertEqual(CartItem.objects.count(), initial_count + 1)
+
+
+class UserViewTests(TestCase):
+    def setUp(self):
+        # Creates the user
+        self.username = "testuser"
+        self.password = "testpass123"
+        self.user = get_user_model().objects.create_user(username=self.username, password=self.password)
+
+    def test_login_view_post_success(self):
+        response = self.client.post(reverse('login'), {
+            'username': self.username,
+            'password': self.password,
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url == reverse('home'))

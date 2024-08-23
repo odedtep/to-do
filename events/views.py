@@ -122,12 +122,12 @@ def add_to_cart(request, event_id=None):
             event.participants.add(request.user)
 
         if CartItem.objects.filter(event=event, user=request.user).exists():
-            messages.info(request, 'This event is already in your cart.')
+            messages.success(request, 'This event is already in your cart.')
         else:
             CartItem.objects.create(event=event, user=request.user)
             messages.success(request, 'Your event has been added to your cart.')
-
-    messages.error(request, 'Invalid request.')
+    else:
+        messages.error(request, 'Invalid request.')
     return redirect('user_cart')
 
 
@@ -135,7 +135,7 @@ def add_to_cart(request, event_id=None):
 def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html',
-                  {'cart_items': cart_items, })
+                  {'cart_items': cart_items })
 
 
 def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601):
@@ -170,7 +170,7 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             city_name = venue_info.get('city', {}).get('name')
             address_line1 = venue_info.get('address', {}).get('line1')
             event_url = event.get('url')
-            # Create a new event dictionary
+
             filtered_event = {
                 'id': event_id,
                 'name': name,
@@ -235,6 +235,11 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
 
     if response.status_code == 200:
         event_data = response.json()
+        # Weather widget
+        venue = event_data['_embedded']['venues'][0]
+        city = venue.get('city', {}).get('name', 'Tallinn')
+        weather = weather_context(request, location=city)
+
         event_details = {
             'id': ticketmaster_event_id,
             'name': event_data.get('name'),
@@ -247,7 +252,7 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
             'url': event_data.get('url'),
         }
 
-        return render(request, 'ticketmaster_event_detail.html', {'event': event_details})
+        return render(request, 'ticketmaster_event_detail.html', {'event': event_details, **weather})
 
     return JsonResponse({'error': 'Event not found'}, status=404)
 
@@ -315,5 +320,3 @@ def delete_event(request, event_id):
     event.delete()
     messages.success(request, "The event has been successfully deleted.")
     return redirect('all_events')
-
-
