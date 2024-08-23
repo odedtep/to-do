@@ -1,33 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ event.title }}</h1>
+    <h1>{{ event.title }}</h1>
 
-{% if event.description %}
-<p><strong>Description:</strong> {{ event.description }}</p>
-{% endif %}
+    {% if event.description %}
+        <p><strong>Description:</strong> {{ event.description }}</p>
+    {% endif %}
 
-<p><strong>Date:</strong> {{ event.start_date }} - {{ event.end_date }}</p>
-<p><strong>Time:</strong> {{ event.start_time }} - {{ event.end_time }}</p>
-<p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
+    <p><strong>Date:</strong> {{ event.start_date }} - {{ event.end_date }}</p>
+    <p><strong>Time:</strong> {{ event.start_time }} - {{ event.end_time }}</p>
+    <p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
 
-{% if event.payment_amount %}
-<p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
-{% endif %}
+    {% if event.payment_amount %}
+        <p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
+    {% endif %}
 
-{% if event.image %}
-<p><strong>Image:</strong></p>
-<img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto;">
-{% endif %}
+    {% if event.image %}
+        <p><strong>Image:</strong></p>
+        <img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto;">
+    {% endif %}
 
-{% if event.video %}
-<p><strong>Video:</strong></p>
-<video controls style="max-width: 100%; height: auto;">
-    <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
-    Your browser does not support the video tag.
-</video>
-{% endif %}
+    {% if event.video %}
+        <p><strong>Video:</strong></p>
+        <video controls style="max-width: 100%; height: auto;">
+            <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
 
+    <form action="{% url 'delete_event_from_cart' event.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete from Cart</button>
+    </form>
 {% endblock %}
 
 
