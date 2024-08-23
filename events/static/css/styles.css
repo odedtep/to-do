@@ -182,6 +182,17 @@ a:hover {
     max-width: 85%;
     font-family: 'Verdana', sans-serif
 }
+.ticketmaster-calendar {
+    margin-top: 40px;
+    max-width: 50%;
+     line-height: 2;
+    background-color: #e0e0d8;
+    border-radius: 15px;
+    padding: 10px;
+    display: inline-block;
+    text-align: left;
+    font-family: 'Verdana', sans-serif
+}
 
 .create-event {
     border-radius: 10px;
