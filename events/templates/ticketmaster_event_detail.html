@@ -76,12 +76,6 @@
 {% endif %}
 
 </div>
-{% if user.is_authenticated %}
-    <form method="post" action="{% url 'delete_event_from_cart_ticketmaster' event.id %}" style="margin-top: 20px;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Remove from Cart</button>
-    </form>
-{% endif %}
 {#{% if user.is_authenticated %}#}
 {#    <form method="post" action="{% url 'add_to_cart_ticketmaster' ticketmaster_event.id %}">#}
 {#        {% csrf_token %}#}

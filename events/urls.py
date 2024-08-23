@@ -19,5 +19,9 @@ urlpatterns = [
     path('event/delete/<int:event_id>/', views.delete_event, name='delete_event'),
     path('cart/delete_ticketmaster/<str:ticketmaster_event_id>/', views.delete_event_from_cart_ticketmaster,
          name='delete_event_from_cart_ticketmaster'),
+    path('cart/delete_ticketmaster/<str:ticketmaster_event_id>/', views.delete_event_from_cart_ticketmaster,
+         name='delete_event_from_cart_ticketmaster'),
+    path('ticketmaster_event/<str:ticketmaster_event_id>/view/', views.ticketmaster_event_detail_view,
+         name='ticketmaster_event_detail_view'),
 
 ]

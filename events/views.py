@@ -67,7 +67,7 @@ def get_city(location_id):
     try:
         location_id = int(location_id)
     except ValueError:
-        return ''  # or handle the error accordingly
+        return ''
     locations = Location.objects.all()
     for location in locations:
         if location.id == location_id:
@@ -267,6 +267,51 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
 
     return JsonResponse({'error': 'Event not found'}, status=404)
 
+#Function to see the event view from cart
+@login_required
+def ticketmaster_event_detail_view(request, ticketmaster_event_id):
+    # Construct the Ticketmaster API URL
+    url = f'https://app.ticketmaster.com/discovery/v2/events/{ticketmaster_event_id}.json'
+    params = {'apikey': settings.TICKETMASTER_API_KEY}
+
+    try:
+        # Fetch event details from the Ticketmaster API
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Raise an error for bad status codes
+
+        # Parse the response data
+        event_data = response.json()
+
+        # Extract necessary details for the template
+        event = {
+            'id': ticketmaster_event_id,
+            'name': event_data.get('name'),
+            'description': event_data.get('info', 'No description available.'),
+            'start_date': event_data['dates']['start'].get('localDate'),
+            'start_time': event_data['dates']['start'].get('localTime'),
+            'image_url': event_data['images'][0]['url'] if 'images' in event_data and event_data['images'] else None,
+            'venue': event_data['_embedded']['venues'][0].get('name'),
+            'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),
+            'city': event_data['_embedded']['venues'][0]['city'].get('name'),
+            'url': event_data.get('url'),
+        }
+
+        # Render the event details in the template
+        return render(request, 'ticketmaster_event_detail_view.html', {'event': event})
+
+    except requests.exceptions.RequestException as e:
+        # Handle any errors that occur during the API request
+        return JsonResponse({'error': str(e)}, status=500)
+
+    # To delete ticketmaster event from your cart
+
+@login_required
+@require_POST
+def delete_event_from_cart_ticketmaster(request, ticketmaster_event_id):
+    user_cart_item = get_object_or_404(CartItem, user=request.user, ticketmaster_event_id=ticketmaster_event_id)
+    user_cart_item.delete()
+    messages.success(request, 'The Ticketmaster event has been successfully removed from your cart.')
+    return redirect('user_cart')
 
 @login_required
 @require_POST
