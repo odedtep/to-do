@@ -3,8 +3,8 @@
 <title>{% block title %}Add to Cart{% endblock %}</title>
 
 {% block content %}
+<div class="event-detail">
 {% if event.image %}
-
 <img class="event-image" src="{{ event.image.url }}" alt="{{ event.title }}">
 {% endif %}
 <div class="add-cart">
@@ -47,5 +47,6 @@
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
 {% endif %}
+</div>
 </div>
 {% endblock %}

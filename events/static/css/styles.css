@@ -42,7 +42,7 @@ nav {
     border-color: #C3E6CB;
     padding: 10px;
     margin: 10px;
-    width: 20%;
+    width: 50%;
     text-align: center;
     font-family: 'Verdana', sans-serif;
 }
@@ -86,20 +86,20 @@ a:hover {
 }
 
  /*Buttons*/
-/*.login_btn {*/
-/*    width: 50%;*/
-/*    height: 10%;*/
-/*    border-radius: 2px;*/
-/*    background: #a11324;*/
-/*    color: #d71d1d;*/
-/*    padding: 15px;*/
-/*    margin: 50px;*/
-/*}*/
+.login_btn {
+    width: 50%;
+    height: 10%;
+    border-radius: 2px;
+    background: #a11324;
+    color: #d71d1d;
+    padding: 15px;
+    margin: 50px;
+}
 
 .buttons-btn {
     border-radius: 10px;
     background-color: #e5e5db;
-    width: 80%;
+    width: 60%;
     height: 20%;
     text-align: center;
     font-family: 'Verdana', sans-serif;
@@ -107,8 +107,8 @@ a:hover {
 
 .login-btn{
     border-radius: 70px;
-    background-color: #efefed;
-    width: 60%;
+    background-color: #72011b;
+    width: 40%;
     height: 30%;
     text-align: center;
     font-family: 'Verdana', sans-serif;
@@ -169,6 +169,10 @@ a:hover {
     line-height: 2;
 }
 
+.find-form {
+    text-align: left;
+}
+
 .event-calendar {
     line-height: 2;
     background-color: #e0e0d8;
@@ -179,6 +183,13 @@ a:hover {
     text-align: left;
     max-width: 85%;
     font-family: 'Verdana', sans-serif
+}
+
+.event-detail {
+    margin: 10px auto;
+    width: 50%;
+    height: 300px;
+    background-color: #264b5d;
 }
 
 
@@ -229,7 +240,7 @@ a:hover {
 .event-img {
     max-width: 70%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 100px;
 }
 
 .event-view {
@@ -259,11 +270,6 @@ a:hover {
     font-size: small;
 }
 
-
-.form_container {
-    margin-top: 20px;
-}
-
 body,
 html {
     margin: 0;
@@ -271,19 +277,14 @@ html {
     height: 80%;
 }
 
-    #form-title {
-        color: #3f3232;
+#form-title {
+        color: #ee0808;
     }
 
-
-
-    .input_user,
-    .input_pass:focus {
+.input_user,
+.input_pass:focus {
         box-shadow: none;
         outline: 0;
-    }
+}
 
-    .form_container {
-        margin-top: 20px;
-        color: #5e775e;
-    }
+
