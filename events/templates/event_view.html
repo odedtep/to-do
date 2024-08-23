@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
-<title>{% block title %}Event Detail{% endblock %}</title>
+<title>{% block title %}Event View{% endblock %}</title>
 
 {% block content %}
-
+<div class="event-image">
 {% if event.image %}
 <img class="event-image" src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto;">
 {% endif %}
-
-<div class="event-view">
+</div>
+    <br>
+<div class="add-cart">
 <h1>{{ event.title }}</h1>
 {% if event.description %}
 <p><strong>Description:</strong> {{ event.description }}</p>
