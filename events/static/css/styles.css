@@ -138,7 +138,7 @@ a:hover {
 .user_card {
     width: 30%;
     margin: 20px;
-    background: #e8e8df;
+    background: #b8c9b5;
     position: relative;
     display: flex;
     justify-content: center;
@@ -288,10 +288,13 @@ html {
     height: 80%;
 }
 
-#form-title {
-    color: #ee0808;
+.form-title{
+    color: #0c5237;
 }
 
+#form-title{
+    color: #0c5237;
+}
 .input_user,
 .input_pass:focus {
     box-shadow: none;

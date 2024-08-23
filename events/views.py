@@ -21,16 +21,6 @@ def index(request):
     return render(request, 'index.html', {'locations': locations})
 
 
-def location_detail(request, location_id):
-    location = get_object_or_404(Location, id=location_id)
-    activities = Event.objects.filter(location=location)
-    return render(
-        request,
-        'location_detail.html',
-        {'location': location, 'activities': activities}
-    )
-
-
 def all_events(request):
     location_id = request.GET.get('location')
     date = request.GET.get('date')
@@ -61,6 +51,7 @@ def all_events(request):
         **weather})
 
 
+# Ticketmaster function
 def get_city(location_id):
     if location_id is None:
         return ''
@@ -78,12 +69,12 @@ def get_city(location_id):
 @login_required
 def create_event(request):
     if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES)
+        form = EventForm(request.POST, request.FILES)  # request.files- files under the media
         if form.is_valid():
             event = form.save(commit=False)
             event.creator = request.user
             event.save()
-            form.save_m2m()
+            form.save_m2m()  # many to many- private or public, not in use at the moment
             messages.success(request, 'Your event has been created!')
             return redirect('all_events')
     form = EventForm()
@@ -136,40 +127,7 @@ def add_to_cart(request, event_id=None):
             CartItem.objects.create(event=event, user=request.user)
             messages.success(request, 'Your event has been added to your cart.')
 
-    else:
-        messages.error(request, 'Invalid request.')
-    return redirect('user_cart')
-
-
-def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
-    if ticketmaster_event_id:
-        ticketmaster_event_url = request.GET.get('url')
-        name = request.GET.get('name')
-        image_url = request.GET.get('image_url')
-        location = request.GET.get('location')
-        description = request.GET.get('description', 'No description available')
-        start_date = request.GET.get('start_date')
-
-        if not name or not ticketmaster_event_url:
-            messages.error(request, 'Missing needed event details.')
-            return redirect('all_events')
-
-        if CartItem.objects.filter(ticketmaster_event_id=ticketmaster_event_id, user=request.user).exists():
-            messages.info(request, 'This event has been added to your cart.')
-        else:
-            CartItem.objects.create(
-                title=name,
-                location=location,
-                description=description,
-                ticketmaster_event_id=ticketmaster_event_id,
-                ticketmaster_event_url=ticketmaster_event_url,
-                image_url=image_url,
-                start_date=start_date,
-                user=request.user
-            )
-            messages.success(request, 'Event has been added to your cart.')
-    else:
-        messages.error(request, 'Invalid request.')
+    messages.error(request, 'Invalid request.')
     return redirect('user_cart')
 
 
@@ -211,8 +169,6 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
             venue_name = venue_info.get('name')
             city_name = venue_info.get('city', {}).get('name')
             address_line1 = venue_info.get('address', {}).get('line1')
-            longitude = venue_info.get('location', {}).get('longitude')
-            latitude = venue_info.get('location', {}).get('latitude')
             event_url = event.get('url')
             # Create a new event dictionary
             filtered_event = {
@@ -223,17 +179,47 @@ def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601)
                 'start_time': start_time,
                 'location': city_name,
                 'address_line1': address_line1,
-                'longitude': longitude,
-                'latitude': latitude,
                 'venue': venue_name,
                 'url': event_url
             }
-            # print(start_date)
+
             filtered_events.append(filtered_event)
 
         return filtered_events
     else:
         return JsonResponse({'error': 'Failed to fetch data from Ticketmaster API'}, status=response.status_code)
+
+
+def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
+    if ticketmaster_event_id:
+        ticketmaster_event_url = request.GET.get('url')
+        name = request.GET.get('name')
+        image_url = request.GET.get('image_url')
+        location = request.GET.get('location')
+        description = request.GET.get('description', 'No description available')
+        start_date = request.GET.get('start_date')
+
+        if not name or not ticketmaster_event_url:
+            messages.error(request, 'Missing needed event details.')
+            return redirect('all_events')
+
+        if CartItem.objects.filter(ticketmaster_event_id=ticketmaster_event_id, user=request.user).exists():
+            messages.success(request, 'This event is already in your cart.')
+        else:
+            CartItem.objects.create(
+                title=name,
+                location=location,
+                description=description,
+                ticketmaster_event_id=ticketmaster_event_id,
+                ticketmaster_event_url=ticketmaster_event_url,
+                image_url=image_url,
+                start_date=start_date,
+                user=request.user
+            )
+            messages.success(request, 'Event has been added to your cart.')
+    else:
+        messages.error(request, 'Invalid request.')
+    return redirect('user_cart')
 
 
 def ticketmaster_event_detail(request, ticketmaster_event_id):
@@ -255,8 +241,6 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
             'description': event_data.get('info', 'No description available.'),
             'start_date': event_data['dates']['start'].get('localDate'),
             'start_time': event_data['dates']['start'].get('localTime'),
-            # 'end_date': event_data['dates']['end'].get('localDate'),
-            # 'end_time': event_data['dates']['end'].get('localTime'),
             'venue': event_data['_embedded']['venues'][0].get('name'),
             'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),
             'city': event_data['_embedded']['venues'][0]['city'].get('name'),
@@ -267,22 +251,19 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
 
     return JsonResponse({'error': 'Event not found'}, status=404)
 
-#Function to see the event view from cart
+
+# Function to see the event view from cart
 @login_required
 def ticketmaster_event_detail_view(request, ticketmaster_event_id):
-    # Construct the Ticketmaster API URL
     url = f'https://app.ticketmaster.com/discovery/v2/events/{ticketmaster_event_id}.json'
     params = {'apikey': settings.TICKETMASTER_API_KEY}
 
     try:
-        # Fetch event details from the Ticketmaster API
         response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise an error for bad status codes
+        response.raise_for_status()
 
-        # Parse the response data
         event_data = response.json()
 
-        # Extract necessary details for the template
         event = {
             'id': ticketmaster_event_id,
             'name': event_data.get('name'),
@@ -295,15 +276,14 @@ def ticketmaster_event_detail_view(request, ticketmaster_event_id):
             'city': event_data['_embedded']['venues'][0]['city'].get('name'),
             'url': event_data.get('url'),
         }
-
-        # Render the event details in the template
         return render(request, 'ticketmaster_event_detail_view.html', {'event': event})
 
     except requests.exceptions.RequestException as e:
-        # Handle any errors that occur during the API request
+
         return JsonResponse({'error': str(e)}, status=500)
 
-    # To delete ticketmaster event from your cart
+
+# To delete ticketmaster event from your cart
 
 @login_required
 @require_POST
@@ -312,6 +292,7 @@ def delete_event_from_cart_ticketmaster(request, ticketmaster_event_id):
     user_cart_item.delete()
     messages.success(request, 'The Ticketmaster event has been successfully removed from your cart.')
     return redirect('user_cart')
+
 
 @login_required
 @require_POST
@@ -335,10 +316,4 @@ def delete_event(request, event_id):
     messages.success(request, "The event has been successfully deleted.")
     return redirect('all_events')
 
-@login_required
-@require_POST
-def delete_event_from_cart_ticketmaster(request, ticketmaster_event_id):
-    user_cart_item = get_object_or_404(CartItem, user=request.user, ticketmaster_event_id=ticketmaster_event_id)
-    user_cart_item.delete()
-    messages.success(request, 'The Ticketmaster event has been successfully removed from your cart.')
-    return redirect('user_cart')
+

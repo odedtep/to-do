@@ -37,7 +37,7 @@ class Event(models.Model):
 
     category = models.ForeignKey(EventCategory, on_delete=models.CASCADE, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255, blank=False, null=False)
     name = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -64,13 +64,13 @@ class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ticketmaster_event_id = models.CharField(max_length=255, blank=True, null=True)
     ticketmaster_event_url = models.URLField(blank=True, null=True)
-    image_url = models.URLField(blank=True, null=True)  # Add this line to store image URL for Ticketmaster events
-    location = models.CharField(max_length=255, blank=True, null=True)  # Add this line to store location
-    start_date = models.DateField(blank=True, null=True)  # Add this line to store the event date
+    image_url = models.URLField(blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
     added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        if self.event:
-            return f"{self.event.title} added by {self.user.username}"
-        else:
-            return f"Ticketmaster Event {self.ticketmaster_event_id} added by {self.user.username}"
+        # if self.event:
+        return f"{self.event.title} added by {self.user.username}"
+    # else:
+    #     return f"Ticketmaster Event {self.ticketmaster_event_id} added by {self.user.username}"
