@@ -25,8 +25,12 @@
                                     <h5 class="card-title">{{ item.event.title }}</h5>
                                     <p class="card-text"><strong>Date:</strong> {{ item.event.start_date }}</p>
                                     <p class="card-text"><strong>Location:</strong> {{ item.event.location.name }}</p>
-                                    <a href="{% url 'event_view' item.event.id %}" class="btn btn-primary mt-auto">View
-                                        Details</a>
+                                    {% if item.event.id %}
+                                        <a href="{% url 'event_view' item.event.id %}" class="btn btn-primary mt-auto">View
+                                            Details</a>
+                                    {% else %}
+                                        <span class="text-muted">Event details unavailable</span>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
