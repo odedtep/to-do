@@ -121,10 +121,10 @@ def add_to_cart(request, event_id=None):
             event.participants.add(request.user)
 
         if CartItem.objects.filter(event=event, user=request.user).exists():
-            messages.success(request, 'This event is already in your cart.')
+            messages.success(request, 'This event is already in your favorites.')
         else:
             CartItem.objects.create(event=event, user=request.user)
-            messages.success(request, 'Your event has been added to your cart.')
+            messages.success(request, 'Your event has been added to your favorites.')
     else:
         messages.error(request, 'Invalid request.')
     return redirect('user_cart')
@@ -203,7 +203,7 @@ def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
             return redirect('all_events')
 
         if CartItem.objects.filter(ticketmaster_event_id=ticketmaster_event_id, user=request.user).exists():
-            messages.success(request, 'This event is already in your cart.')
+            messages.success(request, 'This event is already in your favorites.')
         else:
             CartItem.objects.create(
                 title=name,
@@ -215,7 +215,7 @@ def add_to_cart_ticketmaster(request, ticketmaster_event_id=None):
                 start_date=start_date,
                 user=request.user
             )
-            messages.success(request, 'Event has been added to your cart.')
+            messages.success(request, 'Event has been added to your favorites.')
     else:
         messages.error(request, 'Invalid request.')
     return redirect('user_cart')
@@ -295,7 +295,7 @@ def ticketmaster_event_detail_view(request, ticketmaster_event_id):
 def delete_event_from_cart_ticketmaster(request, ticketmaster_event_id):
     user_cart_item = get_object_or_404(CartItem, user=request.user, ticketmaster_event_id=ticketmaster_event_id)
     user_cart_item.delete()
-    messages.success(request, 'The Ticketmaster event has been successfully removed from your cart.')
+    messages.success(request, 'The event has been successfully removed from your favorites.')
     return redirect('user_cart')
 
 
@@ -305,7 +305,7 @@ def delete_event_from_cart(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     user_cart_item = get_object_or_404(CartItem, user=request.user, event=event)
     user_cart_item.delete()
-    messages.success(request, 'The event has been successfully removed from your cart.')
+    messages.success(request, 'The event has been successfully removed from your favorites.')
 
     return redirect('user_cart')
 

@@ -4,58 +4,57 @@
 
 {% block content %}
     <br>
-<div class="add-cart">
-<h1>{{ event.title }}</h1>
-{% if event.description %}
-<p><strong>Description:</strong> {{ event.description }}</p>
-{% endif %}
-<p><strong>Date:</strong> {{ event.start_date }}
-    {% if event.end_date %}
-    - {{ event.end_date }}
+    <div class="add-cart">
+    <h1>{{ event.title }}</h1>
+    {% if event.description %}
+        <p><strong>Description:</strong> {{ event.description }}</p>
     {% endif %}
-</p>
-<p><strong>Time:</strong> {{ event.start_time }}
-    {% if event.end_time %}
-    - {{ event.end_time }}
+    <p><strong>Date:</strong> {{ event.start_date }}
+        {% if event.end_date %}
+            - {{ event.end_date }}
+        {% endif %}
+    </p>
+    <p><strong>Time:</strong> {{ event.start_time }}
+        {% if event.end_time %}
+            - {{ event.end_time }}
+        {% endif %}
+    </p>
+    <p><strong>Number of Participants:</strong> {{ participants }}</p>
+    <p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
+    {% if event.payment_amount %}
+        <p><strong>Payment Amount:</strong> {{ event.payment_amount }} €</p>
     {% endif %}
-</p>
- <p><strong>Number of Participants:</strong> {{ participants }}</p>
-<p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
-{% if event.payment_amount %}
-<p><strong>Payment Amount:</strong> {{ event.payment_amount }} €</p>
-{% endif %}
 
     {% if event.image %}
-<p><strong>Image:</strong></p>
-<img class="event-image" src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 100%; height: auto; max-height: 300px; object-fit: contain;">
+        <img class="event-view-image" src="{{ event.image.url }}" alt="{{ event.title }}">
 
-{% endif %}
-
-{% if event.video %}
-<p><strong>Video:</strong></p>
-<video controls style="max-width: 100%; height: auto; max-height: 500px; object-fit: contain;">
-    <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
-    Your browser does not support the video tag.
-</video>
-{% endif %}
-
-<div class="cart-btn">
-    {% if user.is_authenticated %}
-        <form method="post" action="{% url 'add_to_cart' event.id %}">
-            {% csrf_token %}
-             <br>
-            <button class="cart-btn" type="submit">&#129530;Add to Cart</button>
-        </form>
-    {% else %}
-        <a class="cart-btn" href="{% url 'login' %}" >Log in to add this event to your cart.</a>
     {% endif %}
 
-    {% if user == event.creator %}
-        <form action="{% url 'delete_event' event.id %}" method="post" >
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Delete Event</button>
-        </form>
+    {% if event.video %}
+        <p><strong>Video:</strong></p>
+        <video controls style="max-width: 100%; height: auto; max-height: 500px; object-fit: contain;">
+            <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
+            Your browser does not support the video tag.
+        </video>
     {% endif %}
-</div>
+
+    <div class="cart-btn">
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'add_to_cart' event.id %}">
+                {% csrf_token %}
+                <br>
+                <button class="cart-btn" type="submit">&#129505;Add to favourite</button>
+            </form>
+        {% else %}
+            <a class="button-btn" href="{% url 'login' %}">Log in to add this event to your cart.</a>
+        {% endif %}
+
+        {% if user == event.creator %}
+            <form action="{% url 'delete_event' event.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete Event</button>
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}
 </div>

@@ -12,9 +12,9 @@
                     <div class="row g-0">
                         <div class="col-md-4">
                             {% if event.image %}
-                                <img src="{{ event.image.url }}" class="img-fluid rounded-start" alt="{{ event.title }} image">
+                                <img class="event-image" src="{{ event.image.url }}"  alt="{{ event.title }} image">
                             {% else %}
-                                <img src="{% static 'images/logo.png' %}" class="img-fluid rounded-start" alt="logo image">
+                                <img class="event-image"  src="{% static 'images/logo.png' %}"  alt="logo image">
                             {% endif %}
                         </div>
                         <div class="col-md-8">
@@ -49,9 +49,9 @@
                     <div class="row g-0">
                         <div class="col-md-4">
                             {% if event.image_url %}
-                                <img src="{{ event.image_url }}" class="img-fluid rounded-start" alt="{{ event.title }} image">
+                                <img class="event-image" src="{{ event.image_url }}"  alt="{{ event.title }} image">
                             {% else %}
-                                <img src="{% static 'images/logo.png' %}" class="img-fluid rounded-start" alt="Placeholder image">
+                                <img class="event-image" src="{% static 'images/logo.png' %}" alt="Placeholder image">
                             {% endif %}
                         </div>
                         <div class="col-md-8">

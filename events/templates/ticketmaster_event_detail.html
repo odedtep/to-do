@@ -42,8 +42,7 @@
 {% endif %}
 
 {% if event.image_url %}
-<p><strong>Image:</strong></p>
-<img src="{{ event.image_url }}" alt="{{ event.name }}" style="max-width: 100%; height: auto;">
+<img class="event-view-image" src="{{ event.image_url }}" alt="{{ event.name }}">
 {% endif %}
 
 {% if event.video %}

@@ -3,71 +3,72 @@
 {% block content %}
 
     <div class="add-cart">
-<h1>{{ event.name }}</h1>
+        <h1>{{ event.name }}</h1>
 
-{% if event.description %}
-<p><strong>Description:</strong> {{ event.description }}</p>
-{% endif %}
+        {% if event.description %}
+            <p><strong>Description:</strong> {{ event.description }}</p>
+        {% endif %}
 
-<p><strong>Date:</strong> {{ event.start_date }}
-    {% if event.end_date %}
-    - {{ event.end_date }}
-    {% endif %}
-</p>
+        <p><strong>Date:</strong> {{ event.start_date }}
+            {% if event.end_date %}
+                - {{ event.end_date }}
+            {% endif %}
+        </p>
 
-<p><strong>Time:</strong> {{ event.start_time }}
-    {% if event.end_time %}
-    - {{ event.end_time }}
-    {% endif %}
-</p>
+        <p><strong>Time:</strong> {{ event.start_time }}
+            {% if event.end_time %}
+                - {{ event.end_time }}
+            {% endif %}
+        </p>
 
-{% if event.venue %}
-<p><strong>Venue:</strong> {{ event.venue }}</p>
-{% endif %}
+        {% if event.venue %}
+            <p><strong>Venue:</strong> {{ event.venue }}</p>
+        {% endif %}
 
-{% if event.address %}
-<p><strong>Address:</strong> {{ event.address }}, {{ event.city }}</p>
-{% endif %}
+        {% if event.address %}
+            <p><strong>Address:</strong> {{ event.address }}, {{ event.city }}</p>
+        {% endif %}
 
-{% if participants is not None %}
-<p>Number of Participants: {{ participants }}</p>
-{% endif %}
+        {% if participants is not None %}
+            <p>Number of Participants: {{ participants }}</p>
+        {% endif %}
 
-{% if event.get_payment_type_display %}
-<p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
-{% endif %}
+        {% if event.get_payment_type_display %}
+            <p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
+        {% endif %}
 
-{% if event.payment_amount %}
-<p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
-{% endif %}
+        {% if event.payment_amount %}
+            <p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
+        {% endif %}
 
-{% if event.image_url %}
-<img src="{{ event.image_url }}" alt="{{ event.name }}" style="max-width: 100%; height: auto;">
-{% endif %}
+        {% if event.image_url %}
+            <img class="event-view-image" src="{{ event.image_url }}" alt="{{ event.name }}">
+        {% endif %}
 
-{% if event.video %}
-<p><strong>Video:</strong></p>
-<video controls style="max-width: 100%; height: auto;">
-    <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
-    Your browser does not support the video tag.
-</video>
-{% endif %}
+        {% if event.video %}
+            <p><strong>Video:</strong></p>
+            <video controls style="max-width: 100%; height: auto;">
+                <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
+                Your browser does not support the video tag.
+            </video>
+        {% endif %}
 
- {% if event.url %}
-<p>
-    <strong>Buy tickets</strong>
-    <a href="{{ event.url }}" target="_blank" class="buttons-btn">here</a></p>
-{% endif %}
-<div class="cart-btn">
-{% if user.is_authenticated %}
-     <form method="post" action="{% url 'delete_event_from_cart_ticketmaster' event.id %}" style="margin-top: 20px;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Remove from Cart</button>
-    </form>
-{% else %}
-    <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
-{% endif %}
+        {% if event.url %}
+            <p>
+                <strong>Buy tickets</strong>
+                <a href="{{ event.url }}" target="_blank" class="buttons-btn">here</a></p>
+        {% endif %}
+        <div class="cart-btn">
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'delete_event_from_cart_ticketmaster' event.id %}"
+                      style="margin-top: 20px;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove from Cart</button>
+                </form>
+            {% else %}
+                <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
+            {% endif %}
 
-</div>
-</div>
+        </div>
+    </div>
 {% endblock %}
