@@ -16,7 +16,7 @@ def landing_page(request):
 
 def index(request):
     if 'weather_location' in request.session:
-        del request.session['weather_location']#get
+        del request.session['weather_location']  # get
     locations = Location.objects.all()
     return render(request, 'index.html', {'locations': locations})
 
@@ -134,7 +134,7 @@ def add_to_cart(request, event_id=None):
 def user_cart(request):
     cart_items = CartItem.objects.filter(user=request.user).order_by('event__start_date')
     return render(request, 'user_cart.html',
-                  {'cart_items': cart_items })
+                  {'cart_items': cart_items})
 
 
 def get_ticketmaster_events(request, city, start_date_iso8601, end_date_iso8601):
@@ -243,11 +243,12 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
             'id': ticketmaster_event_id,
             'name': event_data.get('name'),
             'description': event_data.get('info', 'No description available.'),
-            'start_date': event_data['dates']['start'].get('localDate'),# get
-            'start_time': event_data['dates']['start'].get('localTime'),# get
-            'venue': event_data['_embedded']['venues'][0].get('name'),# get
-            'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),# get
-            'city': event_data['_embedded']['venues'][0]['city'].get('name'),# get
+            'start_date': event_data['dates']['start'].get('localDate'),  # get
+            'start_time': event_data['dates']['start'].get('localTime'),  # get
+            'venue': event_data['_embedded']['venues'][0].get('name'),  # get
+            'image_url': event_data['images'][0]['url'] if 'images' in event_data and event_data['images'] else None,
+            'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),  # get
+            'city': event_data['_embedded']['venues'][0]['city'].get('name'),  # get
             'url': event_data.get('url'),
         }
 

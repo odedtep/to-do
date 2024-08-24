@@ -64,7 +64,7 @@
                             <div class="col-md-4">
                                 {% if item.event and item.event.image %}
                                     <img src="{{ item.event.image.url }}" class="img-fluid rounded-start"
-                                         alt="{{ item.event.title }} image">
+                                      alt="{{ item.event.title }} image">
                                 {% elif item.ticketmaster_event_id and item.image_url %}
                                     <img src="{{ item.image_url }}" class="img-fluid rounded-start"
                                          alt="{{ item.title }} image">
