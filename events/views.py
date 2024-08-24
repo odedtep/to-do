@@ -16,7 +16,7 @@ def landing_page(request):
 
 def index(request):
     if 'weather_location' in request.session:
-        del request.session['weather_location']
+        del request.session['weather_location']#get
     locations = Location.objects.all()
     return render(request, 'index.html', {'locations': locations})
 
@@ -42,7 +42,6 @@ def all_events(request):
         if weather_location:
             weather_location = weather_location.name
             request.session['weather_location'] = weather_location
-        weather_location = 'Tallinn'
     weather_location = request.session.get('weather_location', 'Tallinn')
     weather = weather_context(request, weather_location)
     return render(request, 'events.html', {
@@ -69,12 +68,12 @@ def get_city(location_id):
 @login_required
 def create_event(request):
     if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES)  # request.files- files under the media
+        form = EventForm(request.POST, request.FILES)
         if form.is_valid():
             event = form.save(commit=False)
             event.creator = request.user
             event.save()
-            form.save_m2m()  # many to many- private or public, not in use at the moment
+            form.save_m2m()
             messages.success(request, 'Your event has been created!')
             return redirect('all_events')
     form = EventForm()
@@ -244,11 +243,11 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
             'id': ticketmaster_event_id,
             'name': event_data.get('name'),
             'description': event_data.get('info', 'No description available.'),
-            'start_date': event_data['dates']['start'].get('localDate'),
-            'start_time': event_data['dates']['start'].get('localTime'),
-            'venue': event_data['_embedded']['venues'][0].get('name'),
-            'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),
-            'city': event_data['_embedded']['venues'][0]['city'].get('name'),
+            'start_date': event_data['dates']['start'].get('localDate'),# get
+            'start_time': event_data['dates']['start'].get('localTime'),# get
+            'venue': event_data['_embedded']['venues'][0].get('name'),# get
+            'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),# get
+            'city': event_data['_embedded']['venues'][0]['city'].get('name'),# get
             'url': event_data.get('url'),
         }
 
