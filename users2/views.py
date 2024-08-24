@@ -34,7 +34,8 @@ def login_view(request):
                 login(request, user)
                 messages.success(request, f'Welcome back, {username} !')
                 return redirect('home')
-            messages.error(request, 'Invalid username or password.')
+            else:
+                messages.error(request, 'Invalid username or password.')
         messages.error(request, 'Invalid username or password.')
     form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})

@@ -31,7 +31,7 @@ nav {
     background-color: #f9faf8;
     border-color: #C3E6CB;
     padding: 10px;
-    margin: 10px;
+    margin: 10px auto;
     width: 20%;
     text-align: center;
     font-family: 'Verdana', sans-serif;
@@ -85,9 +85,10 @@ a:hover {
     top: 20%;
     /*transform: translateY(-34%);*/
 }
-    .weather img {
-            display: block;
-            margin: 0 auto;
+
+.weather img {
+    display: block;
+    margin: 0 auto;
 }
 
 /*Buttons*/
@@ -103,9 +104,12 @@ a:hover {
 
 .buttons-btn {
     border-radius: 10px;
+    border-color: black;
     background-color: #dae5d9;
-    width: 60%;
-    height: 20%;
+    width: 250px;
+    height: 70px;
+    /*padding: 10px;*/
+    margin: 10px;
     text-align: center;
     font-family: 'Verdana', sans-serif;
 }
@@ -120,6 +124,7 @@ a:hover {
     transform: translateY(-7%);
     top: 50%;
     left: 10px;
+
 
 }
 
@@ -140,18 +145,20 @@ a:hover {
 /* Login page */
 
 .user_card {
-    width: 30%;
-    margin: 20px;
+    width: 45%;
+    height: 500px;
+    margin: 100px;
+    line-height: 3.5;
     background: #b8c9b5;
     position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 200px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .register-card {
@@ -161,29 +168,46 @@ a:hover {
 }
 
 .find-events {
-    width: 30%;
-    height: 400px;
-    margin: 30px auto;
-    text-align: Center;
+    width: 50%;
+    height: 600px;
+    margin: 70px auto;
+    text-align: center;
     background-color: #c0cebf;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 50px;
-    border-radius: 100px;
+    padding: 300px;
+    border-radius: 20px;
     color: #366c33;
     font-family: 'Verdana', sans-serif;
-    line-height: 2;
+    line-height: 3.5;
+    font-size: 20px;
+}
+
+select {
+    width: 260px;
+    height: 55px;
+    padding: 15px;
+    margin: auto;
+    background-color: #efefed;
+}
+
+input {
+    width: 260px;
+    height: 55px;
+    padding: 15px;
+    margin: auto;
+    background-color: #efefed;
 }
 
 .find-form {
     text-align: center;
 }
 
-.find-form button.buttons-btn {
-    margin-top: 20px;
-}
+/*.find-form button.buttons-btn {*/
+/*    margin-top: 20px;*/
+/*}*/
 
 .event-calendar {
     line-height: 2;
@@ -292,13 +316,14 @@ html {
     height: 80%;
 }
 
-.form-title{
+.form-title {
     color: #0c5237;
+
+    #form-title {
+        color: #0c5237;
+    }
 }
 
-#form-title{
-    color: #0c5237;
-}
 .input_user,
 .input_pass:focus {
     box-shadow: none;
@@ -306,3 +331,19 @@ html {
 }
 
 
+.event_card {
+    width: 40%;
+    height: 80%;
+    margin: 100px;
+    /*line-height: 3.5;*/
+    background: #b8c9b5;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 15px;
+}
