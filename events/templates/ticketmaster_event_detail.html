@@ -41,9 +41,9 @@
 <p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
 {% endif %}
 
-{% if event.image %}
+{% if event.image_url %}
 <p><strong>Image:</strong></p>
-<img src="{{ event.image.url }}" alt="{{ event.name }}" style="max-width: 100%; height: auto;">
+<img src="{{ event.image_url }}" alt="{{ event.name }}" style="max-width: 100%; height: auto;">
 {% endif %}
 
 {% if event.video %}
