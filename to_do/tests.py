@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -40,3 +41,32 @@ class AddToCartTests(TestCase):
         initial_count = CartItem.objects.count()
         self.client.get(reverse('add_to_cart', args=[self.event.id]))
         self.assertEqual(CartItem.objects.count(), initial_count + 1)
+
+
+class UserViewTests(TestCase):
+    def setUp(self):
+        # Creates the user
+        self.username = "testuser"
+        self.password = "testpass123"
+        self.email = 'test@example.com'
+        self.register_url = reverse('register')
+        self.user = get_user_model().objects.create_user(username=self.username, password=self.password)
+
+    def test_login_view_post_success(self):
+        response = self.client.post(reverse('login'), {
+            'username': self.username,
+            'password': self.password,
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url == reverse('home'))
+
+
+class CreateEventViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+
+    def test_create_event_view_logged_in(self):
+        self.client.login(username='testuser', password='testpass')
+        response = self.client.get(reverse('create_event'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'create_event.html')

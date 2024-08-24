@@ -54,7 +54,7 @@
 
 {% block content %}
 <div class="cart-view">
-    <h1>Your Cart</h1>
+    <h1>Your Cart </h1>
     <div class="cart">
         <div class="row row-cols-1 row-cols-md-2 g-4">
             {% for item in cart_items %}
@@ -93,7 +93,7 @@
                                     <p class="card-text">
                                         <strong>Location:</strong>
                                         {% if item.event %}
-                                            {{ item.event.location.name }}
+                                            {{ item.event.location}}
                                         {% else %}
                                             {{ item.location }}
                                         {% endif %}
