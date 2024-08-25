@@ -28,8 +28,7 @@ INSTALLED_APPS = [
     'events',
     'users2',
     'widget_tweaks'
-    # 'crispy_forms'
-    # 'crispy_bootstrap4'
+
 
 ]
 
@@ -65,8 +64,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'to_do.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
 

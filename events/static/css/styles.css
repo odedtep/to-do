@@ -119,14 +119,9 @@ a:hover {
     font-family: 'Verdana', sans-serif;
 }
 
-/*.log-in-container {*/
-/*    display: flex; !* Use Flexbox to align items horizontally *!*/
-/*    align-items: stretch; !* Vertically center the button and text *!*/
-/*    justify-content: left; !* Center the content horizontally *!*/
-/*    text-align: left; !* Center the text within the container *!*/
-/*    gap: 10px; !* Space between button and text *!*/
-/*}*/
+.test{
 
+}
 .login-btn {
     border-radius: 90px;
     background-color: #bcd0bc;
@@ -470,7 +465,7 @@ html {
 .form-control {
     font-size: 14px;
     padding: 8px;
-    height: 40px    ;
+    height: 40px;
 }
 
 .fa {
@@ -479,4 +474,18 @@ html {
 
 .test_button {
 
+}
+.custom-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #efefed;
+    text-align: left;
+    padding: 10px 20px;
+    height: 85px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }

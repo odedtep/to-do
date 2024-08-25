@@ -70,7 +70,4 @@ class CartItem(models.Model):
     added_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        # if self.event:
         return f"{self.event.title} added by {self.user.username}"
-    # else:
-    #     return f"Ticketmaster Event {self.ticketmaster_event_id} added by {self.user.username}"

@@ -48,7 +48,6 @@ class UserViewTests(TestCase):
         # Creates the user
         self.username = "testuser"
         self.password = "testpass123"
-        self.email = 'test@example.com'
         self.register_url = reverse('register')
         self.user = get_user_model().objects.create_user(username=self.username, password=self.password)
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-<title>{% block title %}Event View{% endblock %}</title>
+<title>{% block title %}Event view{% endblock %}</title>
 
 {% block content %}
 
@@ -79,7 +79,7 @@
      <span class="centered-content">
          {% csrf_token %}
     <a href="{% url 'login' %}" class="buttons-btn float-left">Log in</a>
-         <span class="">To add this event to your Favourites.</span>
+         <span class="test">To add this event to your Favourites.</span>
           </span>
                 </p>
             {% endif %}
