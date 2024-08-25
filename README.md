@@ -2,7 +2,6 @@
 
 ## Overview
 
-
 To-Do is a Django-based web application that allows users to create and
 manage events. Users can also add events from Ticketmaster to their cart, view event details, and manage their cart
 items. The application integrates with the Ticketmaster API to fetch event data and display it alongside user-created
@@ -10,14 +9,9 @@ events.
 
 ![to-do](./To-Do-app.png)
 
-
 ![to-do](./International-events.png)
 
-
 ![to-do](./Create-event.png)
-
-
-
 
 ## Features
 
@@ -49,16 +43,13 @@ Prerequisites
 
 https://github.com/eneligihub/to-do.git
 
-
 2. Create and activate virtual environment
 
-python -m venv venv
-
+```python -m venv venv```
 
 3. Install requirements
 
-pip install -r requirements.txt
-
+```pip install -r requirements.txt```
 
 4. Check that under the .gitignore file there are .idea uncommented or added
 
@@ -68,13 +59,11 @@ pip install -r requirements.txt
 
 6. Run migrations to create tables in database
 
-python manage.py migrate
-
+```python manage.py migrate```
 
 7. Create superuser for admin panel
 
-python manage.py createsuperuser
-
+```python manage.py createsuperuser```
 
 8. Create .env file for environment variables and add KEYs
 
@@ -82,13 +71,11 @@ python manage.py createsuperuser
 
 10. Run Django server
 
-python manage.py runserver
-
+```python manage.py runserver```
 
 11. Access application in
 
 http://127.0.0.1:8000/
-
 
 Usage
 Registration: Create a new account.
@@ -101,6 +88,6 @@ Cart Management: Add events to the cart, view details, and remove items as neede
 
 All unit tests are launched from the container's bash.
 
-python manage.py test
+```python manage.py test```
 
 
