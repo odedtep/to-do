@@ -7,7 +7,9 @@ manage events. Users can also add events from Ticketmaster to their cart, view e
 items. The application integrates with the Ticketmaster API to fetch event data and display it alongside user-created
 events.
 
-picture here
+![demo image](./To-Do app.png)
+![demo image](./International events.png)
+![demo image](./Create event.png)
 
 ## Features
 
