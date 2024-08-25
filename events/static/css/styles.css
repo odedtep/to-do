@@ -279,7 +279,7 @@ input {
     width: 50%;
     margin: 20px auto;
     padding: 30px;
-    height: 650px;
+    height: 700px;
     text-align: left;
     font-family: 'Verdana', sans-serif;
     line-height: 1.5;
@@ -418,3 +418,76 @@ html {
         /*margin: 0 auto;*/
 
     }
+.form-container {
+     background-color: #b8c9b5;;
+    width: 50%;
+    margin: 20px auto;
+    padding: 30px;
+    height: 650px;
+    text-align: left;
+    font-family: 'Verdana', sans-serif;
+    line-height: 1.5;
+    border-radius: 10px;
+
+    max-width: 600px; /* Adjust the width as needed */
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+    margin-bottom: 1rem; /* Space between form elements */
+}
+/* Custom CSS */
+.user_card2 {
+    width: 200%;
+    max-width: 700px; /* Adjust width as needed */
+    background-color: #b8c9b5; /* Background color of the form container */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    font-family: 'Verdana', sans-serif;
+    font-size:18px; color:#3f6b2f;"
+}
+
+.form-title2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.form_container2 {
+    width: 100%;
+}
+
+.form-group,
+.input-group {
+    position: relative;
+}
+
+.form-control {
+    padding-left: 35px; /* Adjust padding for icon space */
+}
+
+/*.position-relative {*/
+/*    position: relative;*/
+/*}*/
+
+/*.position-absolute {*/
+/*    position: absolute;*/
+/*}*/
+
+.fa {
+    font-size: 16px; /* Adjust icon size as needed */
+}
+
+/*.login-btn {*/
+/*    background-color: #007bff; !* Button background color *!*/
+/*    color: #ffffff; !* Button text color *!*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    padding: 10px 20px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.login-btn:hover {*/
+/*    background-color: #0056b3; !* Button hover color *!*/
+/*}*/

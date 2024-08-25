@@ -32,7 +32,8 @@
         {% endif %}
 
         <form action="{% url 'delete_event_from_cart' event.id %}" method="POST">
-            <button type="submit" class="btn btn-danger">Delete from Favourites</button>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Remove from your Favourites</button>
         </form>
     </div>
 {% endblock %}
