@@ -85,58 +85,60 @@ a:hover {
     top: 20%;
     /*transform: translateY(-34%);*/
 }
+
 .weather-info {
     color: #3f6b2f;
 }
+
 .weather img {
-        display: block;
-        margin: 0 auto;
+    display: block;
+    margin: 0 auto;
 }
 
-    /*Buttons*/
+/*Buttons*/
 
-    .login_btn {
-        width: 50%;
-        height: 10%;
-        border-radius: 2px;
-        background: #cbe7ca;
-        color: #b8cba8;
-        padding: 15px;
-        margin: 50px;
-    }
+.login_btn {
+    width: 50%;
+    height: 10%;
+    border-radius: 2px;
+    background: #cbe7ca;
+    color: #b8cba8;
+    padding: 15px;
+    margin: 50px;
+}
 
-    .buttons-btn {
-        border-radius: 10px;
-        border-color: black;
-        background-color: #b8cba8;
-        width: 250px;
-        height: 70px;
-        /*padding: 10px;*/
-        margin: 10px;
-        text-align: center;
-        font-family: 'Verdana', sans-serif;
-    }
+.buttons-btn {
+    border-radius: 10px;
+    border-color: black;
+    background-color: #b8cba8;
+    width: 250px;
+    height: 70px;
+    /*padding: 10px;*/
+    margin: 10px;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+}
 
-    /*.log-in-container {*/
-    /*    display: flex; !* Use Flexbox to align items horizontally *!*/
-    /*    align-items: stretch; !* Vertically center the button and text *!*/
-    /*    justify-content: left; !* Center the content horizontally *!*/
-    /*    text-align: left; !* Center the text within the container *!*/
-    /*    gap: 10px; !* Space between button and text *!*/
-    /*}*/
+/*.log-in-container {*/
+/*    display: flex; !* Use Flexbox to align items horizontally *!*/
+/*    align-items: stretch; !* Vertically center the button and text *!*/
+/*    justify-content: left; !* Center the content horizontally *!*/
+/*    text-align: left; !* Center the text within the container *!*/
+/*    gap: 10px; !* Space between button and text *!*/
+/*}*/
 
-    .login-btn {
-        border-radius: 90px;
-        background-color: #bcd0bc;
-        width: 40%;
-        height: 50%;
-        text-align: center;
-        font-family: 'Verdana', sans-serif;
-        transform: translateY(-7%);
-        top: 50%;
-        left: 10px;
+.login-btn {
+    border-radius: 90px;
+    background-color: #bcd0bc;
+    width: 40%;
+    height: 50%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    transform: translateY(-7%);
+    top: 50%;
+    left: 10px;
 
-    }
+}
 
 
 .cart-btn {
@@ -217,7 +219,6 @@ input {
 }
 
 
-
 .event-calendar {
     line-height: 2;
     background-color: #e0e0d8;
@@ -272,6 +273,7 @@ input {
     font-family: 'Verdana', sans-serif;
     width: 85%;
 }
+
 .add-cart {
     background-color: #b8c9b5;;
     width: 50%;
@@ -320,6 +322,7 @@ input {
     padding: 5px;
     border-radius: 80px;
 }
+
 .col-md-4 {
     display: grid;
     place-items: center;
@@ -340,9 +343,9 @@ html {
     height: 80%;
 }
 
-    #form-title {
-        color: #0c5237;
-    }
+#form-title {
+    color: #0c5237;
+}
 
 
 .input_user,
@@ -402,19 +405,21 @@ html {
     background-color: #b56571;
     width: 300px;
 }
-    .danger-btn {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 20px;
-        border-radius: 10px;
-        width: 500px;
-        /*margin: 0 auto;*/
 
-    }
+.danger-btn {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    /*margin: 0 auto;*/
+
+}
+
 .form-container {
-     background-color: #b8c9b5;;
+    background-color: #b8c9b5;;
     width: 50%;
     margin: 20px auto;
     padding: 30px;
@@ -432,16 +437,19 @@ html {
 .form-container select {
     margin-bottom: 1rem;
 }
+
 /*create_event*/
 .user_card2 {
-    width: 200%;
+    width: 80%;
     max-width: 700px;
     background-color: #b8c9b5;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     font-family: 'Verdana', sans-serif;
-    font-size:18px; color:#3f6b2f;"
+    font-size: 18px;
+    color: #3f6b2f;
+"
 }
 
 .form-title2 {
@@ -451,6 +459,7 @@ html {
 
 .form_container2 {
     width: 100%;
+
 }
 
 .form-group,
@@ -459,12 +468,15 @@ html {
 }
 
 .form-control {
-    padding-left: 35px;
+    font-size: 14px;
+    padding: 8px;
+    height: 40px    ;
 }
 
 .fa {
     font-size: 16px;
 }
-.test_button{
+
+.test_button {
 
 }
