@@ -4,77 +4,86 @@
 {% block content %}
 
     <div class="add-cart-ticketmaster">
-<h1>{{ event.name }}</h1>
-    <br>
+        <h1>{{ event.name }}</h1>
+        <br>
 
-{% if event.description %}
-<p><strong>Description:</strong> {{ event.description }}</p>
-{% endif %}
+        {% if event.description %}
+            <p><strong>Description:</strong> {{ event.description }}</p>
+        {% endif %}
 
-<p><strong>Date:</strong> {{ event.start_date }}
-    {% if event.end_date %}
-    - {{ event.end_date }}
-    {% endif %}
-</p>
+        <p><strong>Date:</strong> {{ event.start_date }}
+            {% if event.end_date %}
+                - {{ event.end_date }}
+            {% endif %}
+        </p>
 
-<p><strong>Time:</strong> {{ event.start_time }}
-    {% if event.end_time %}
-    - {{ event.end_time }}
-    {% endif %}
-</p>
+        <p><strong>Time:</strong> {{ event.start_time }}
+            {% if event.end_time %}
+                - {{ event.end_time }}
+            {% endif %}
+        </p>
 
-{% if event.venue %}
-<p><strong>Venue:</strong> {{ event.venue }}</p>
-{% endif %}
+        {% if event.venue %}
+            <p><strong>Venue:</strong> {{ event.venue }}</p>
+        {% endif %}
 
-{% if event.address %}
-<p><strong>Address:</strong> {{ event.address }}, {{ event.city }}</p>
-{% endif %}
+        {% if event.address %}
+            <p><strong>Address:</strong> {{ event.address }}, {{ event.city }}</p>
+        {% endif %}
 
-{% if participants is not None %}
-<p>Number of Participants: {{ participants }}</p>
-{% endif %}
+        {% if participants is not None %}
+            <p>Number of Participants: {{ participants }}</p>
+        {% endif %}
 
-{% if event.get_payment_type_display %}
-<p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
-{% endif %}
+        {% if event.get_payment_type_display %}
+            <p><strong>Payment Type:</strong> {{ event.get_payment_type_display }}</p>
+        {% endif %}
 
-{% if event.payment_amount %}
-<p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
-{% endif %}
-<div class="picture-view">
-{% if event.image_url %}
-<img class="event-view-image" src="{{ event.image_url }}" alt="{{ event.name }}">
-{% endif %}
-</div>
-{% if event.video %}
-<p><strong>Video:</strong></p>
-<video controls style="max-width: 100%; height: auto;">
-    <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
-    Your browser does not support the video tag.
-</video>
-{% endif %}
-
-<div class="cart-btn">
-{% if user.is_authenticated %}
-    <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="name" value="{{ event.name }}">
-        <input type="hidden" name="image_url" value="{{ event.image_url }}">
-        <input type="hidden" name="location" value="{{ event.location }}">
-        <input type="hidden" name="description" value="{{ event.description }}">
-        <input type="hidden" name="start_date" value="{{ event.start_date }}">
-        <input type="hidden" name="url" value="{{ event.url }}">
+        {% if event.payment_amount %}
+            <p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
+        {% endif %}
         <div class="picture-view">
-        <button type="submit" class="buttons-btn">&#129505;Add to Favourites</button>
+            {% if event.image_url %}
+                <img class="event-view-image" src="{{ event.image_url }}" alt="{{ event.name }}">
+            {% endif %}
+        </div>
+        {% if event.video %}
+            <p><strong>Video:</strong></p>
+            <video controls style="max-width: 100%; height: auto;">
+                <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
+                Your browser does not support the video tag.
+            </video>
+        {% endif %}
 
-    </div>
-        </form>
-{% else %}
-    <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
-{% endif %}
+        <div class="cart-btn">
+            {% if user.is_authenticated %}
+                <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="name" value="{{ event.name }}">
+                    <input type="hidden" name="image_url" value="{{ event.image_url }}">
+                    <input type="hidden" name="location" value="{{ event.location }}">
+                    <input type="hidden" name="description" value="{{ event.description }}">
+                    <input type="hidden" name="start_date" value="{{ event.start_date }}">
+                    <input type="hidden" name="url" value="{{ event.url }}">
+                    <div class="picture-view">
+                        <button type="submit" class="buttons-btn">&#129505;Add to Favourites</button>
 
-</div>
+                    </div>
 
-</div>
+                </form>
+                </div>
+                </div>
+            {% else %}
+{% csrf_token %}
+                <p class="text-center mt-lg-4">
+     <span class="centered-content">
+    <a href="{% url 'login' %}" class="buttons-btn float-left">Log in</a>
+         <span class="">To add this event to your Favourites.</span>
+          </span>
+                </p>
+            {% endif %}
+
+
+
+
 {% endblock %}

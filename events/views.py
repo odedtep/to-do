@@ -16,9 +16,23 @@ def landing_page(request):
 
 def index(request):
     if 'weather_location' in request.session:
-        del request.session['weather_location']  # get
+        del request.session['weather_location']
     locations = Location.objects.all()
     return render(request, 'index.html', {'locations': locations})
+
+
+def get_city(location_id):
+    if location_id is None:
+        return ''
+    try:
+        location_id = int(location_id)
+    except ValueError:
+        return ''
+    locations = Location.objects.all()
+    for location in locations:
+        if location.id == location_id:
+            city = location.name
+    return city
 
 
 def all_events(request):
@@ -51,18 +65,6 @@ def all_events(request):
 
 
 # Ticketmaster function
-def get_city(location_id):
-    if location_id is None:
-        return ''
-    try:
-        location_id = int(location_id)
-    except ValueError:
-        return ''
-    locations = Location.objects.all()
-    for location in locations:
-        if location.id == location_id:
-            city = location.name
-    return city
 
 
 @login_required
@@ -117,7 +119,7 @@ def add_to_cart(request, event_id=None):
     if event_id:
         # Handle user-created event
         event = get_object_or_404(Event, id=event_id)
-        if not request.user in event.participants.all():
+        if request.user not in event.participants.all():
             event.participants.add(request.user)
 
         if CartItem.objects.filter(event=event, user=request.user).exists():
@@ -235,7 +237,7 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
     if response.status_code == 200:
         event_data = response.json()
         # Weather widget
-        venue = event_data['_embedded']['venues'][0]
+        venue = event_data.get('_embedded', {}).get('venues', [{}])[0]
         city = venue.get('city', {}).get('name', 'Tallinn')
         weather = weather_context(request, location=city)
 
@@ -243,13 +245,13 @@ def ticketmaster_event_detail(request, ticketmaster_event_id):
             'id': ticketmaster_event_id,
             'name': event_data.get('name'),
             'description': event_data.get('info', 'No description available.'),
-            'start_date': event_data['dates']['start'].get('localDate'),  # get
-            'start_time': event_data['dates']['start'].get('localTime'),  # get
-            'venue': event_data['_embedded']['venues'][0].get('name'),  # get
+            'start_date': event_data.get('dates', {}).get('start', {}).get('localDate', 'No date available'),
+            'start_time': event_data.get('dates', {}).get('start', {}).get('localTime', 'No time available'),
+            'venue': venue.get('name', 'No venue name available'),
             'image_url': event_data['images'][0]['url'] if 'images' in event_data and event_data['images'] else None,
-            'address': event_data['_embedded']['venues'][0].get('address', {}).get('line1'),  # get
-            'city': event_data['_embedded']['venues'][0]['city'].get('name'),  # get
-            'url': event_data.get('url'),
+            'address': venue.get('address', {}).get('line1', 'No address available'),
+            'city': venue.get('city', {}).get('name', 'No city available'),
+            'url': event_data.get('url', 'No URL available'),
         }
 
         return render(request, 'ticketmaster_event_detail.html', {'event': event_details, **weather})

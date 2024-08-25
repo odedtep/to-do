@@ -63,6 +63,7 @@
                         </div>
                 </form>
             {% else %}
+                {% csrf_token %}
                 <p><a href="{% url 'login' %}">Log in</a> to add this event to Favourites.</p>
             {% endif %}
 

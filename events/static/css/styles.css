@@ -42,8 +42,8 @@ nav {
     background-color: #f9faf8;
     border-color: #C3E6CB;
     padding: 10px;
-    margin: 10px;
-    width: 50%;
+    margin: 10px auto;
+    width: 20%;
     text-align: center;
     font-family: 'Verdana', sans-serif;
 }
@@ -85,48 +85,59 @@ a:hover {
     top: 20%;
     /*transform: translateY(-34%);*/
 }
-
+.weather-info {
+    color: #3f6b2f;
+}
 .weather img {
-    display: block;
-    margin: 0 auto;
+        display: block;
+        margin: 0 auto;
 }
 
-/*Buttons*/
-.login_btn {
-    width: 50%;
-    height: 10%;
-    border-radius: 2px;
-    background: #cbe7ca;
-    color: #b8cba8;
-    padding: 15px;
-    margin: 50px;
-}
+    /*Buttons*/
 
-.buttons-btn {
-    border-radius: 10px;
-    border-color: black;
-    background-color: #dae5d9;
-    width: 250px;
-    height: 70px;
-    /*padding: 10px;*/
-    margin: 10px;
-    text-align: center;
-    font-family: 'Verdana', sans-serif;
-}
+    .login_btn {
+        width: 50%;
+        height: 10%;
+        border-radius: 2px;
+        background: #cbe7ca;
+        color: #b8cba8;
+        padding: 15px;
+        margin: 50px;
+    }
 
-.login-btn {
-    border-radius: 70px;
-    background-color: #bcd0bc;
-    width: 40%;
-    height: 30%;
-    text-align: center;
-    font-family: 'Verdana', sans-serif;
-    transform: translateY(-7%);
-    top: 50%;
-    left: 10px;
+    .buttons-btn {
+        border-radius: 10px;
+        border-color: black;
+        background-color: #b8cba8;
+        width: 250px;
+        height: 70px;
+        /*padding: 10px;*/
+        margin: 10px;
+        text-align: center;
+        font-family: 'Verdana', sans-serif;
+    }
 
+    /*.log-in-container {*/
+    /*    display: flex; !* Use Flexbox to align items horizontally *!*/
+    /*    align-items: stretch; !* Vertically center the button and text *!*/
+    /*    justify-content: left; !* Center the content horizontally *!*/
+    /*    text-align: left; !* Center the text within the container *!*/
+    /*    gap: 10px; !* Space between button and text *!*/
+    /*}*/
 
-}
+    .login-btn {
+        border-radius: 90px;
+        background-color: #bcd0bc;
+        width: 40%;
+        height: 50%;
+        text-align: center;
+        font-family: 'Verdana', sans-serif;
+        transform: translateY(-7%);
+        top: 50%;
+        left: 10px;
+
+    }
+
 
 .cart-btn {
     width: 200px;
@@ -305,11 +316,16 @@ input {
 }
 
 .event-image {
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
     margin: 10px;
     padding: 5px;
     border-radius: 80px;
+}
+.col-md-4 {
+    display: grid;
+    place-items: center;
 }
 
 .contact {
@@ -327,13 +343,13 @@ html {
     height: 80%;
 }
 
-.form-title {
-    color: #0c5237;
-
+/*.form-title {*/
+/*    color: #0c5237;*/
+/*}*/
     #form-title {
         color: #0c5237;
     }
-}
+
 
 .input_user,
 .input_pass:focus {
@@ -391,7 +407,7 @@ html {
 .btn-danger {
     background-color: #b56571;
     width: 300px;
-
+}
     .danger-btn {
         align-items: center;
         display: flex;
@@ -403,4 +419,3 @@ html {
         /*margin: 0 auto;*/
 
     }
-}
