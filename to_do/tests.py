@@ -35,7 +35,7 @@ class AddToCartTests(TestCase):
         self.assertRedirects(response, reverse('user_cart'))
         messages = list(response.wsgi_request._messages)
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'This event is already in your cart.')
+        self.assertEqual(str(messages[0]), 'This event is already in your favorites.')
 
     def test_cart_item_count(self):
         initial_count = CartItem.objects.count()

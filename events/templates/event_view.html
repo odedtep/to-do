@@ -3,9 +3,8 @@
 <title>{% block title %}Event View{% endblock %}</title>
 
 {% block content %}
-    <br>
-<div class="add-cart">
-<h1>{{ event.title }}</h1>
+    <div class="add-cart ">
+    <h1>{{ event.title }}</h1>
 
     {% if event.description %}
         <p><strong>Description:</strong> {{ event.description }}</p>
@@ -19,23 +18,23 @@
         <p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
     {% endif %}
 
-
+    <div class="picture-view">
     {% if event.image %}
-        <p><strong>Image:</strong></p>
-        <img class="event-image"  src="{{ event.image.url }}" alt="{{ event.title }}" >
+        <img class="event-view-image" src="{{ event.image.url }}" alt="{{ event.title }}">
     {% endif %}
-    {% if event.video %}
-        <p><strong>Video:</strong></p>
-        <video controls style="max-width: 100%; height: auto;">
-            <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
-            Your browser does not support the video tag.
-        </video>
-    {% endif %}
+    <div>
+        {% if event.video %}
+            <p><strong>Video:</strong></p>
+            <video controls style="max-width: 100%; height: auto;">
+                <source src="{{ event.video.url }}" type="{{ event.video.file.content_type }}">
+                Your browser does not support the video tag.
+            </video>
+        {% endif %}
 
-    <form action="{% url 'delete_event_from_cart' event.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete from Cart</button>
-    </form>
+        <form action="{% url 'delete_event_from_cart' event.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Remove from your Favourites</button>
+        </form>
     </div>
 {% endblock %}
 

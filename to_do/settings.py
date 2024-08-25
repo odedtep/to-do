@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'events',
     'users2',
+    'widget_tweaks'
     # 'crispy_forms'
     # 'crispy_bootstrap4'
 

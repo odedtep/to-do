@@ -31,7 +31,7 @@ nav {
     background-color: #f9faf8;
     border-color: #C3E6CB;
     padding: 10px;
-    margin: 10px;
+    margin: 10px auto;
     width: 20%;
     text-align: center;
     font-family: 'Verdana', sans-serif;
@@ -42,8 +42,8 @@ nav {
     background-color: #f9faf8;
     border-color: #C3E6CB;
     padding: 10px;
-    margin: 10px;
-    width: 50%;
+    margin: 10px auto;
+    width: 20%;
     text-align: center;
     font-family: 'Verdana', sans-serif;
 }
@@ -85,43 +85,59 @@ a:hover {
     top: 20%;
     /*transform: translateY(-34%);*/
 }
-    .weather img {
-            display: block;
-            margin: 0 auto;
+.weather-info {
+    color: #3f6b2f;
+}
+.weather img {
+        display: block;
+        margin: 0 auto;
 }
 
-/*Buttons*/
-.login_btn {
-    width: 50%;
-    height: 10%;
-    border-radius: 2px;
-    background: #cbe7ca;
-    color: #b8cba8;
-    padding: 15px;
-    margin: 50px;
-}
+    /*Buttons*/
 
-.buttons-btn {
-    border-radius: 10px;
-    background-color: #dae5d9;
-    width: 60%;
-    height: 20%;
-    text-align: center;
-    font-family: 'Verdana', sans-serif;
-}
+    .login_btn {
+        width: 50%;
+        height: 10%;
+        border-radius: 2px;
+        background: #cbe7ca;
+        color: #b8cba8;
+        padding: 15px;
+        margin: 50px;
+    }
 
-.login-btn {
-    border-radius: 70px;
-    background-color: #bcd0bc;
-    width: 40%;
-    height: 30%;
-    text-align: center;
-    font-family: 'Verdana', sans-serif;
-    transform: translateY(-7%);
-    top: 50%;
-    left: 10px;
+    .buttons-btn {
+        border-radius: 10px;
+        border-color: black;
+        background-color: #b8cba8;
+        width: 250px;
+        height: 70px;
+        /*padding: 10px;*/
+        margin: 10px;
+        text-align: center;
+        font-family: 'Verdana', sans-serif;
+    }
 
-}
+    /*.log-in-container {*/
+    /*    display: flex; !* Use Flexbox to align items horizontally *!*/
+    /*    align-items: stretch; !* Vertically center the button and text *!*/
+    /*    justify-content: left; !* Center the content horizontally *!*/
+    /*    text-align: left; !* Center the text within the container *!*/
+    /*    gap: 10px; !* Space between button and text *!*/
+    /*}*/
+
+    .login-btn {
+        border-radius: 90px;
+        background-color: #bcd0bc;
+        width: 40%;
+        height: 50%;
+        text-align: center;
+        font-family: 'Verdana', sans-serif;
+        transform: translateY(-7%);
+        top: 50%;
+        left: 10px;
+
+    }
+
 
 .cart-btn {
     width: 200px;
@@ -140,18 +156,20 @@ a:hover {
 /* Login page */
 
 .user_card {
-    width: 30%;
-    margin: 20px;
+    width: 45%;
+    height: 500px;
+    margin: 100px;
+    line-height: 3.5;
     background: #b8c9b5;
     position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 200px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .register-card {
@@ -161,29 +179,44 @@ a:hover {
 }
 
 .find-events {
-    width: 30%;
-    height: 400px;
-    margin: 30px auto;
-    text-align: Center;
+    width: 50%;
+    height: 600px;
+    margin: 70px auto;
+    text-align: center;
     background-color: #c0cebf;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 50px;
-    border-radius: 100px;
+    padding: 300px;
+    border-radius: 20px;
     color: #366c33;
     font-family: 'Verdana', sans-serif;
-    line-height: 2;
+    line-height: 3.5;
+    font-size: 20px;
+}
+
+select {
+    width: 260px;
+    height: 55px;
+    padding: 15px;
+    margin: auto;
+    background-color: #efefed;
+}
+
+input {
+    width: 260px;
+    height: 55px;
+    padding: 15px;
+    margin: auto;
+    background-color: #efefed;
 }
 
 .find-form {
     text-align: center;
 }
 
-.find-form button.buttons-btn {
-    margin-top: 20px;
-}
+
 
 .event-calendar {
     line-height: 2;
@@ -239,19 +272,29 @@ a:hover {
     font-family: 'Verdana', sans-serif;
     width: 85%;
 }
-
 .add-cart {
-    background-color: #b8c9b5;
-    width: 30%;
-    margin: 10px auto;
-    padding: 10px;
-    height: 80%;
+    background-color: #b8c9b5;;
+    width: 50%;
+    margin: 20px auto;
+    padding: 30px;
+    height: 700px;
     text-align: left;
     font-family: 'Verdana', sans-serif;
     line-height: 1.5;
     border-radius: 10px;
 }
 
+.add-cart-ticketmaster {
+    background-color: #b8c9b5;
+    width: 45%;
+    margin: 20px auto;
+    padding: 30px;
+    height: 70%;
+    text-align: left;
+    font-family: 'Verdana', sans-serif;
+    line-height: 1.5;
+    border-radius: 10px;
+}
 
 .event-img {
     max-width: 70%;
@@ -270,11 +313,16 @@ a:hover {
 }
 
 .event-image {
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
     margin: 10px;
     padding: 5px;
     border-radius: 80px;
+}
+.col-md-4 {
+    display: grid;
+    place-items: center;
 }
 
 .contact {
@@ -292,13 +340,11 @@ html {
     height: 80%;
 }
 
-.form-title{
-    color: #0c5237;
-}
+    #form-title {
+        color: #0c5237;
+    }
 
-#form-title{
-    color: #0c5237;
-}
+
 .input_user,
 .input_pass:focus {
     box-shadow: none;
@@ -306,3 +352,119 @@ html {
 }
 
 
+.event_card {
+    width: 40%;
+    height: 80%;
+    margin: 100px;
+    /*line-height: 3.5;*/
+    background: #b8c9b5;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 15px;
+}
+
+.event-view-image {
+    width: 270px;
+    height: 190px;
+    margin: auto;
+    padding: 5px;
+    position: relative;
+    border-radius: 20px;
+
+}
+
+.event-image {
+    max-width: 100%;
+    height: 160px;
+    margin: 15px auto;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.picture-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.btn-danger {
+    background-color: #b56571;
+    width: 300px;
+}
+    .danger-btn {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        border-radius: 10px;
+        width: 500px;
+        /*margin: 0 auto;*/
+
+    }
+.form-container {
+     background-color: #b8c9b5;;
+    width: 50%;
+    margin: 20px auto;
+    padding: 30px;
+    height: 650px;
+    text-align: left;
+    font-family: 'Verdana', sans-serif;
+    line-height: 1.5;
+    border-radius: 10px;
+
+    max-width: 600px;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+    margin-bottom: 1rem;
+}
+/*create_event*/
+.user_card2 {
+    width: 200%;
+    max-width: 700px;
+    background-color: #b8c9b5;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    font-family: 'Verdana', sans-serif;
+    font-size:18px; color:#3f6b2f;"
+}
+
+.form-title2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.form_container2 {
+    width: 100%;
+}
+
+.form-group,
+.input-group {
+    position: relative;
+}
+
+.form-control {
+    padding-left: 35px;
+}
+
+.fa {
+    font-size: 16px;
+}
+.test_button{
+
+}

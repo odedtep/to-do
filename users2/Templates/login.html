@@ -13,13 +13,13 @@
                 <form method="POST" action="">
                     {% csrf_token %}
                     <div class="form-group mb-3 position-relative">
-                        <input type="text" name="username" placeholder="Username" class="form-control pl-5"
+                        <input type="text" name="username" placeholder="    Username" class="form-control pl-5"
                                autocomplete="off">
                         <i class="fa fa-user-cog  position-absolute "
                            style="top: 40%; left: 5px; transform: translateY(-50%);"></i>
                     </div>
                     <div class="input-group mb-2 position-relative">
-                        <input type="password" name="password" placeholder="Password..." class="form-control pl-5"
+                        <input type="password" name="password" placeholder="   Password..." class="form-control pl-5"
                                autocomplete="off">
                         <i class="fa fa-lock position-absolute"
                            style="top: 50%; left: 5px; transform: translateY(-50%);"></i>
@@ -33,12 +33,6 @@
                 </form>
 
             </div>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-
             <div class="mt-4">
                 <div class="register-card">
                     <span class="mr-2">Don't have an account?</span>

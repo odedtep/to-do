@@ -3,25 +3,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Weather in {{ city }}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-{#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">#}
+    {#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">#}
 </head>
 <body>
-    <div id="weather-widget">
-        <h2>Weather in {{ city }}</h2>
-        {% if temperature != 'N/A' %}
-             <div class=" weather">
-            <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon showing {{ description }}">
-            </div>
-            <p>{{ description }}</p>
-            <p>{{ temperature }}°C</p>
-            <p>Feels like: {{ feels_like }} °C</p>
-            <p>Wind: {{ wind }} m/s</p>
-        {% else %}
-            <p>Weather data is currently unavailable.</p>
-        {% endif %}
+
+<h2>Weather in {{ city }}</h2>
+{% if temperature != 'N/A' %}
+    <div class=" weather">
+        <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon showing {{ description }}">
     </div>
+    <div class="weather-info">
+        <h4>{{ description }}</h4>
+        <h3>{{ temperature }}°C</h3>
+        <p>Feels like: {{ feels_like }} °C</p>
+        <p>Wind: {{ wind }} m/s</p>
+    </div>
+{% else %}
+    <p>Weather data is currently unavailable.</p>
+{% endif %}
+
 </body>
 </html>
