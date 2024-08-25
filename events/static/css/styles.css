@@ -274,13 +274,12 @@ input {
     font-family: 'Verdana', sans-serif;
     width: 85%;
 }
-
 .add-cart {
-    background-color: #b8c9b5;
+    background-color: #b8c9b5;;
     width: 50%;
     margin: 20px auto;
     padding: 30px;
-    height: 70%;
+    height: 650px;
     text-align: left;
     font-family: 'Verdana', sans-serif;
     line-height: 1.5;

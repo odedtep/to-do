@@ -58,7 +58,6 @@
         <div class="cart-btn">
             {% if user.is_authenticated %}
                 <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
-                    {% csrf_token %}
                     <input type="hidden" name="name" value="{{ event.name }}">
                     <input type="hidden" name="image_url" value="{{ event.image_url }}">
                     <input type="hidden" name="location" value="{{ event.location }}">
@@ -66,6 +65,7 @@
                     <input type="hidden" name="start_date" value="{{ event.start_date }}">
                     <input type="hidden" name="url" value="{{ event.url }}">
                     <div class="picture-view">
+                        {% csrf_token %}
                         <button type="submit" class="buttons-btn">&#129505;Add to Favourites</button>
 
                     </div>
@@ -74,9 +74,9 @@
                 </div>
                 </div>
             {% else %}
-{% csrf_token %}
                 <p class="text-center mt-lg-4">
      <span class="centered-content">
+         {% csrf_token %}
     <a href="{% url 'login' %}" class="buttons-btn float-left">Log in</a>
          <span class="">To add this event to your Favourites.</span>
           </span>
