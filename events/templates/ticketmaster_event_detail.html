@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+<title>{% block title %}Event View{% endblock %}</title>
 
 {% block content %}
 
-    <div class="add-cart">
+    <div class="add-cart-ticketmaster">
 <h1>{{ event.name }}</h1>
+    <br>
 
 {% if event.description %}
 <p><strong>Description:</strong> {{ event.description }}</p>
@@ -40,11 +42,11 @@
 {% if event.payment_amount %}
 <p><strong>Payment Amount:</strong> {{ event.payment_amount }}</p>
 {% endif %}
-
+<div class="picture-view">
 {% if event.image_url %}
 <img class="event-view-image" src="{{ event.image_url }}" alt="{{ event.name }}">
 {% endif %}
-
+</div>
 {% if event.video %}
 <p><strong>Video:</strong></p>
 <video controls style="max-width: 100%; height: auto;">
@@ -53,11 +55,6 @@
 </video>
 {% endif %}
 
- {% if event.url %}
-<p>
-    <strong>Buy tickets</strong>
-    <a href="{{ event.url }}" target="_blank" class="buttons-btn">here</a></p>
-{% endif %}
 <div class="cart-btn">
 {% if user.is_authenticated %}
     <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
@@ -68,8 +65,11 @@
         <input type="hidden" name="description" value="{{ event.description }}">
         <input type="hidden" name="start_date" value="{{ event.start_date }}">
         <input type="hidden" name="url" value="{{ event.url }}">
-        <button type="submit" class="buttons-btn">Add to Cart</button>
-    </form>
+        <div class="picture-view">
+        <button type="submit" class="buttons-btn">&#129505;Add to Favourites</button>
+
+    </div>
+        </form>
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add this event to your cart.</p>
 {% endif %}

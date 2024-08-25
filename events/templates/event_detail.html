@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
-<title>{% block title %}Add to Cart{% endblock %}</title>
+<title>{% block title %}Add to Favorites{% endblock %}</title>
 
 {% block content %}
     <br>
     <div class="add-cart">
     <h1>{{ event.title }}</h1>
+    <br>
     {% if event.description %}
         <p><strong>Description:</strong> {{ event.description }}</p>
     {% endif %}
@@ -24,12 +25,12 @@
     {% if event.payment_amount %}
         <p><strong>Payment Amount:</strong> {{ event.payment_amount }} €</p>
     {% endif %}
-
+<div class="picture-view">
     {% if event.image %}
         <img class="event-view-image" src="{{ event.image.url }}" alt="{{ event.title }}">
 
     {% endif %}
-
+</div>
     {% if event.video %}
         <p><strong>Video:</strong></p>
         <video controls style="max-width: 100%; height: auto; max-height: 500px; object-fit: contain;">
@@ -43,7 +44,7 @@
             <form method="post" action="{% url 'add_to_cart' event.id %}">
                 {% csrf_token %}
                 <br>
-                <button class="cart-btn" type="submit">&#129505;Add to favourite</button>
+                <button class="cart-btn" type="submit">&#129505;Add to Favourites</button>
             </form>
         {% else %}
             <a class="button-btn" href="{% url 'login' %}">Log in to add this event to your cart.</a>
