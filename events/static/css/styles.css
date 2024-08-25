@@ -216,9 +216,7 @@ input {
     text-align: center;
 }
 
-/*.find-form button.buttons-btn {*/
-/*    margin-top: 20px;*/
-/*}*/
+
 
 .event-calendar {
     line-height: 2;
@@ -342,9 +340,6 @@ html {
     height: 80%;
 }
 
-/*.form-title {*/
-/*    color: #0c5237;*/
-/*}*/
     #form-title {
         color: #0c5237;
     }
@@ -429,19 +424,19 @@ html {
     line-height: 1.5;
     border-radius: 10px;
 
-    max-width: 600px; /* Adjust the width as needed */
+    max-width: 600px;
 }
 
 .form-container input,
 .form-container textarea,
 .form-container select {
-    margin-bottom: 1rem; /* Space between form elements */
+    margin-bottom: 1rem;
 }
-/* Custom CSS */
+/*create_event*/
 .user_card2 {
     width: 200%;
-    max-width: 700px; /* Adjust width as needed */
-    background-color: #b8c9b5; /* Background color of the form container */
+    max-width: 700px;
+    background-color: #b8c9b5;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
@@ -464,30 +459,12 @@ html {
 }
 
 .form-control {
-    padding-left: 35px; /* Adjust padding for icon space */
+    padding-left: 35px;
 }
-
-/*.position-relative {*/
-/*    position: relative;*/
-/*}*/
-
-/*.position-absolute {*/
-/*    position: absolute;*/
-/*}*/
 
 .fa {
-    font-size: 16px; /* Adjust icon size as needed */
+    font-size: 16px;
 }
+.test_button{
 
-/*.login-btn {*/
-/*    background-color: #007bff; !* Button background color *!*/
-/*    color: #ffffff; !* Button text color *!*/
-/*    border: none;*/
-/*    border-radius: 5px;*/
-/*    padding: 10px 20px;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.login-btn:hover {*/
-/*    background-color: #0056b3; !* Button hover color *!*/
-/*}*/
+}

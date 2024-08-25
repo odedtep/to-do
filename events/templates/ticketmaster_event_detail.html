@@ -58,6 +58,7 @@
         <div class="cart-btn">
             {% if user.is_authenticated %}
                 <form method="get" action="{% url 'add_to_cart_ticketmaster' event.id %}">
+                    {% csrf_token %}
                     <input type="hidden" name="name" value="{{ event.name }}">
                     <input type="hidden" name="image_url" value="{{ event.image_url }}">
                     <input type="hidden" name="location" value="{{ event.location }}">
