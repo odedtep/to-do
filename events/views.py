@@ -28,11 +28,8 @@ def get_city(location_id):
         location_id = int(location_id)
     except ValueError:
         return ''
-    locations = Location.objects.all()
-    for location in locations:
-        if location.id == location_id:
-            city = location.name
-    return city
+    location = Location.objects.filter(id=location_id).first()
+    return location.name if location else ''
 
 
 def all_events(request):
