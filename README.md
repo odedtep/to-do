@@ -71,7 +71,6 @@ https://github.com/eneligihub/to-do.git
 7. Create superuser for admin panel
 
    `python manage.py createsuperuser`
-8. 
 
 8. Create .env file for environment variables and add KEYs
 
